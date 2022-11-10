@@ -1,0 +1,56 @@
+﻿@page
+@model TechTypeModel
+@{
+    ViewData["PageId"] = "CD03";
+    ViewData["Title"] = "What type of heating are you installing?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "QuestionResonse_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                         <h1 class="govuk-fieldset__heading">
+                            What type of heating are you installing?
+                        </h1>
+                    </legend>
+                    
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+                    
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" asp-for="QuestionResponse" type="radio" value="@TechTypes.AirSourceHeatPump">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Air source heat pump
+                            </label>
+                            <div id="newTechType-1-hint" class="govuk-hint govuk-radios__hint">
+                                Cannot be an air-to-air heat pump
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" asp-for="QuestionResponse" type="radio" value="@TechTypes.GroundSourceHeatPump">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                Ground source heat pump or water source heat pump
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-3" asp-for="QuestionResponse" type="radio" value="@TechTypes.BiomassBoiler">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-3">
+                                Biomass boiler
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button" type="submit">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>
+
+

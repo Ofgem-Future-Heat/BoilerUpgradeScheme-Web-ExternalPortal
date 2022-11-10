@@ -1,0 +1,36 @@
+/*GOVUK STYLES*/
+@import "../../../node_modules/govuk-frontend/govuk/all";
+
+/*CUSTOM STYLES*/
+@import "mixins/all";
+@import "helpers/all";
+@import "components/all";
+@import "pages/all";
+
+
+.clear-link {
+    display: inline-block;
+    margin-top: 7px !important;
+    margin-left: 20px;
+}
+
+.moj-clear-all__link {
+    text-decoration: underline;
+    text-decoration-thickness: max(0.0625rem, 0.0625rem);
+    text-underline-offset: 0.1em;
+    border: none;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.moj-clear-application__link {
+    text-decoration: underline;
+    text-decoration-thickness: max(0.0625rem, 0.0625rem);
+    text-underline-offset: 0.1em;
+    border: none;
+    color: #1d70b8;
+    background-color: transparent;
+    padding: 0
+}
+

@@ -1,0 +1,87 @@
+﻿@page
+@model FuelTypeModel
+@{
+    ViewData["PageId"] = "CD167";
+    ViewData["Title"] = "What is the primary fuel type that the new heating system will replace?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("FuelType") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("FuelType") ? "FuelType_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h1 class="govuk-fieldset__heading">
+                            What is the primary fuel type that the new heating system will replace?
+                        </h1>
+                    </legend>
+                    
+                    <p id="FuelType_Error" class="govuk-error-message" gds-validation-for="FuelType"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="FuelType" asp-for="FuelType" type="radio" value="Gas">
+                            <label class="govuk-label govuk-radios__label" for="FuelType">
+                                Gas
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="FuelType-2" asp-for="FuelType" type="radio" value="Oil">
+                            <label class="govuk-label govuk-radios__label" for="FuelType-2">
+                                Oil
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="FuelType-3" asp-for="FuelType" type="radio" value="LPG">
+                            <label class="govuk-label govuk-radios__label" for="FuelType-3">
+                                Liquefied petroleum gas (LPG)
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="FuelType-4" asp-for="FuelType" type="radio" value="Coal">
+                            <label class="govuk-label govuk-radios__label" for="FuelType-4">
+                                Coal
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="FuelType-5" asp-for="FuelType" type="radio" value="Direct electric">
+                            <label class="govuk-label govuk-radios__label" for="FuelType-5">
+                                Direct electric (that is not powering a heat pump)
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="FuelType-6" asp-for="FuelType" type="radio" value="Other" aria-controls="conditional-other" aria-expanded="false">
+                            <label class="govuk-label govuk-radios__label" for="FuelType-6">
+                                Other
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional" id="conditional-other">
+                            <div class="govuk-form-group @(ModelState.HasError("FuelTypeOther") ? "govuk-form-group--error" : null)">
+                                <label class="govuk-label govuk-!-font-weight-bold" for="FuelTypeOther">
+                                    Enter fuel type
+                                </label>
+
+                                <p id="FuelTypeOther_Error" class="govuk-error-message" gds-validation-for="FuelTypeOther"></p>
+
+                                <input class="govuk-input govuk-!-width-two-thirds @(ModelState.HasError("FuelTypeOther") ? "govuk-input--error" : "")" id="FuelTypeOther" maxlength="524288" asp-for="FuelTypeOther" type="text" aria-describedby="@(ModelState.HasError("FuelTypeOther") ? "FuelTypeOther_Error" : null)">
+                            </div>
+                        </div>
+                        <div class="govuk-checkboxes__divider">or</div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newFuel-7" asp-for="FuelType" type="radio" value="none">
+                            <label class="govuk-label govuk-radios__label" for="newFuel-7">
+                                None - this is the property's first heating system
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

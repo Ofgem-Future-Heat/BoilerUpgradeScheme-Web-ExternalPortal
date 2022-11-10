@@ -1,0 +1,50 @@
+﻿@page
+@model TechSharedModel
+@{
+    ViewData["PageId"] = "CD179";
+    ViewData["Title"] = "Are you installing the heat pump on a shared ground or water loop?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "QuestionResonse_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+                        <h1 class="govuk-fieldset__heading">
+                            Are you installing the heat pump on a shared ground or water loop?
+                        </h1>
+                    </legend>
+                    <div class="govuk-form-group">
+                        <p class="govuk-body">If you are installing multiple heat pumps on a shared ground or water loop, you'll need to submit separate applications for each one.</p>
+                    </div>
+                    
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" asp-for="QuestionResponse" type="radio" value="true">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" asp-for="QuestionResponse" type="radio" value="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>
+
+

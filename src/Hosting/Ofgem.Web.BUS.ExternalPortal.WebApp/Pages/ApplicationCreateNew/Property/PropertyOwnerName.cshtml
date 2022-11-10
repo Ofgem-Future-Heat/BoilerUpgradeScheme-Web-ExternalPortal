@@ -1,0 +1,63 @@
+﻿@page
+@model PropertyOwnerNameModel
+@{
+    ViewData["PageId"] = "CD19";
+    ViewData["Title"] = "Contacting the property owner";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            Contacting the property owner
+        </h1>
+
+        <p class="govuk-body">After you've submitted this application, we'll need to contact the property owner to confirm they've given their consent.</p>
+        <p class="govuk-body">You must provide their contact details. If the property has multiple owners or is an organisation, give details of the owner or individual who has legal authority to represent others.</p>
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                Requesting this contact information falls within Ofgem's remit as the scheme administrator. Do not provide your own details in place of your customer's details, as this could result in your application being unsuccessful.
+            </strong>
+        </div>
+        <form method="POST" novalidate>
+
+            <div class="govuk-form-group @(ModelState.HasError("PropertyOwnerName") ? "govuk-form-group--error" : null)">
+                <label class="govuk-label govuk-label--m" asp-for="PropertyOwnerName">
+                    Property owner's full name
+                </label>
+                <div id="owner-full-name-hint" class="govuk-hint">
+                    Include any middle names. So that we can run our identity checks, this must match what appears on the property owner's passport or driving licence.
+                </div>
+
+                <p id="PropertyOwnerName_Error" class="govuk-error-message" gds-validation-for="PropertyOwnerName"></p>
+
+                <input class="govuk-input @(ModelState.HasError("PropertyOwnerName") ? "govuk-input--error": "")" id="PropertyOwnerName"
+                       asp-for="PropertyOwnerName" type="text" spellcheck="false" autocomplete="name"
+                       aria-describedby="owner-full-name-hint @(ModelState.HasError("PropertyOwnerName") ? "PropertyOwnerName_Error": "")" value="@Model.PropertyOwnerName" maxlength="524288">
+            </div>
+
+            <div class="govuk-form-group @(ModelState.HasError("PropertyOwnerTelephoneNumber") ? "govuk-form-group--error" : null)">
+                <label class="govuk-label govuk-label--m" asp-for="PropertyOwnerTelephoneNumber">
+                    Property owner's telephone number
+                </label>
+                <div id="owner-telephone-hint" class="govuk-hint">
+                    For international numbers include the country code
+                </div>
+
+                <p id="PropertyOwnerTelephoneNumber_Error" class="govuk-error-message" gds-validation-for="PropertyOwnerTelephoneNumber"></p>
+
+                <input class="govuk-input govuk-input--width-20 @(ModelState.HasError("PropertyOwnerTelephoneNumber") ? "govuk-input--error": "")" id="PropertyOwnerTelephoneNumber"
+                       asp-for="PropertyOwnerTelephoneNumber" type="tel" aria-describedby="owner-telephone-hint @(ModelState.HasError("PropertyOwnerTelephoneNumber") ? "PropertyOwnerTelephoneNumber_Error": null)"
+                       autocomplete="tel" value="@Model.PropertyOwnerTelephoneNumber" maxlength="524288">
+            </div>
+
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

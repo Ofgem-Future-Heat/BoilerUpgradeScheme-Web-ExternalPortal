@@ -1,0 +1,115 @@
+﻿@page
+@model ConfirmationModel
+@{
+    ViewData["PageId"] = "CD26";
+    ViewData["Title"] = "Application received";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                Voucher application received
+            </h1>
+            <div class="govuk-panel__body">
+                Your application ID<br><strong id="created-application-reference">@Model.ApplicationConfirmationModel.ApplicationReferenceNumber</strong>
+            </div>
+        </div>
+        <p class="govuk-body">
+            We've sent an email confirming this to @Model.ApplicationConfirmationModel.InstallerEmailAddress
+        </p>
+        <p class="govuk-body">
+            If we need further information, we'll email you at the same address.
+        </p>
+        <h2 class="govuk-heading-m">What happens next</h2>
+
+        @if (Model.ApplicationConfirmationModel.IsManualConsent)
+        {
+            <p class="govuk-body">We'll contact the property owner to check how they want to confirm they've consented to this application.</p>
+            <p class="govuk-body">If we need to send out paper forms, they'll have 28 calendar days from the date we post them to respond.</p>
+            <p class="govuk-body">You can track the progress of the application in your account area.</p>
+        }
+        else
+        {
+            <p class="govuk-body">We will also send an email to the property owner at @Model.ApplicationConfirmationModel.PropertyOwnerEmailAddress, asking them to confirm they've consented to this application.</p>
+            <p class="govuk-body">Legally, they must provide their consent before we can issue a voucher.You may want to remind them that, after they've received the email, they have 14 calendar days to give their consent.</p>
+            <p class="govuk-body">You can track the progress of the application in your account area.</p>        
+        }
+
+        @if (Model.ApplicationConfirmationModel.IsEligibleSelfBuild == true || Model.ApplicationConfirmationModel.EpcHasExemptions == true)
+        {
+            <h2 class="govuk-heading-m">Evidence you still need to provide</h2>
+
+            @if (Model.ApplicationConfirmationModel.IsEligibleSelfBuild == true)
+            {
+                <p class="govuk-body">You must now email evidence to prove that the property is an eligible self build to <a href="mailto: BUS.application@ofgem.gov.uk" class="govuk-link">BUS.application@ofgem.gov.uk</a> .</p>
+                <p class="govuk-body">Make sure you include the voucher application ID as a reference.</p>
+
+                <details class="govuk-details" data-module="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                            What kind of evidence is required?
+                        </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        <p class="govuk-body">Successful evidence will clearly show the following:</p>
+                        <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                            <li>that the first owner built the property using mainly their own resources</li>
+                            <li>that this person was an individual (and clearly show their name)</li>
+                            <li>that any subsequent owners have all been individuals (and clearly show their names)</li>
+                            <li>the address of the property (if the property does not yet have an address, we will accept a temporary address given by the local authority, an approved planning reference number or the coordinates of the property)</li>
+                        </ul>
+                        <p class="govuk-body">The property owner's name on this evidence should match the name you've provided in this application.</p>
+                        <p class="govuk-body">The evidence must include proof of property ownership, for example a copy of the title deeds or a contract of sale.</p>
+                        <p class="govuk-body">It must also include proof of self-financing, for example:</p>
+                        <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                            <li>proof of property ownership (eg a copy of title deeds, contract of sale)</li>
+                            <li>documents confirming a self-build VAT exemption or receipt of a self-build loan or mortgage</li>
+                            <li>an invoice for substantial structural materials (eg foundations or timber frame)</li>
+                            <li>self-build insurance</li>
+                            <li>invoices or contracts for builders or tradespeople</li>
+                            <li>bank statement</li>
+                        </ul>
+                    </div>
+                </details>
+            }
+
+            @if (Model.ApplicationConfirmationModel.EpcHasExemptions == true)
+            {
+                <p class="govuk-body">You must now email evidence to prove that the property is exempt from the scheme's loft and cavity wall insulation requirements to <a href="mailto:BUS.application@ofgem.gov.uk" class="govuk-link govuk-link--no-visited-state">BUS.application@ofgem.gov.uk</a> .</p>
+                <p class="govuk-body">Make sure you include the voucher application ID as a reference.</p>
+
+                <details class="govuk-details" data-module="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                            What kind of evidence is required?
+                        </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        <p class="govuk-body">You'll need to:</p>
+                        <ol class="govuk-list govuk-list--number govuk-list--spaced">
+                            <li>Find the appropriate <a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-insulation-exemption-evidence-form" class="govuk-link govuk-link--no-visited-state" target="_blank" rel="noreferrer noopener">insulation exemption evidence form (opens in new tab)</a> on the Ofgem website.</li>
+                            <li>Give it to the property owner so they can arrange for the template to be completed by one of the experts mentioned on the form.</li>
+                            <li>Have them return the signed template to you.</li>
+                            <li>Email the form to us at <a href="mailto:BUS.application@ofgem.gov.uk" class="govuk-link govuk-link--no-visited-state">BUS.application@ofgem.gov.uk</a>, including your voucher application ID. </li>
+                        </ol>
+                    </div>
+                </details>
+            }
+        }
+
+        <h2 class="govuk-heading-m">Get support</h2>
+        <p class="govuk-body">If you need to speak to someone about the Boiler Upgrade Scheme (BUS) or have any comments or suggestions, contact the BUS support team:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>Email: <a href="#" class="govuk-link govuk-link--no-visited-state">BUS.enquiry@ofgem.gov.uk</a></li>
+            <li>Tel: 0330 053 2006</li>
+        </ul>
+
+        <p class="govuk-body govuk-!-margin-top-6">
+            <a asp-page=@Routes.Pages.Path.CD155a id="back-to-account-home-button" class="govuk-button">Back to account home</a>
+        </p>
+
+        <p class="govuk-body">
+            <a asp-page=@Routes.Pages.Path.CD175 asp-route-applictionId="@Model.ApplicationConfirmationModel.ApplicationId" class="govuk-link govuk-link--no-visited-state">What did you think of this service?</a> (takes 30 seconds)
+        </p>
+    </div>
+</div>

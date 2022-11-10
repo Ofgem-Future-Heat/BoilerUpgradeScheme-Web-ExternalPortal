@@ -1,0 +1,561 @@
+﻿@page
+@model CheckYourAnswersModel
+@{
+    ViewData["PageId"] = "CD171";
+    ViewData["Title"] = "Check your answers";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            Check your answers
+        </h1>
+        <h2 class="govuk-heading-m">Property</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            @if (Model.CreateApplication.TechTypeId != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Type of heating being installed
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @if (Model.CreateApplication.TechTypeId == TechTypes.AirSourceHeatPump)
+                        {
+                            <p class="govuk-body">Air source heat pump</p>
+                        }
+                        else if (Model.CreateApplication.TechTypeId == TechTypes.GroundSourceHeatPump || Model.CreateApplication.TechTypeId == TechTypes.SharedGroundLoopSourceHeatPump)
+                        {
+                            <p class="govuk-body">Ground source heat pump or water source heat pump</p>
+                        }
+                        else if (Model.CreateApplication.TechTypeId == TechTypes.BiomassBoiler)
+                        {
+                            <p class="govuk-body">Biomass boiler</p>
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD003>
+                            Change <span class="govuk-visually-hidden">type of heating</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.TechTypeId != null && Model.CreateApplication.TechTypeId == TechTypes.SharedGroundLoopSourceHeatPump)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Heat pump on a shared ground loop
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">Yes</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD179>
+                            Change <span class="govuk-visually-hidden">whether heat pump is on a shared ground loop</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.TechSpecProjectEligible != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Project meets eligibility criteria
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.TechSpecProjectEligible.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD012>
+                            Change <span class="govuk-visually-hidden">whether the project is eligible</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.BiomassEligible != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Project meets further requirements for biomass boilers
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.BiomassEligible.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD157>
+                            Change <span class="govuk-visually-hidden">whether project meets further requirements for biomass boilers</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.InstallationAddress != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Installation address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">
+                            @Model.CreateApplication.InstallationAddress.AddressLine1<br>
+                            @if (!string.IsNullOrEmpty(Model.CreateApplication.InstallationAddress.AddressLine2))
+                            {
+                                @Model.CreateApplication.InstallationAddress.AddressLine2
+                                <br>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.CreateApplication.InstallationAddress.AddressLine3))
+                            {
+                                @Model.CreateApplication.InstallationAddress.AddressLine3
+                                <br>
+                            }
+                            @Model.CreateApplication.InstallationAddress.Postcode
+                        </p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+
+                        @if (Model.CreateApplication.InstallationAddressManualEntry == true)
+                        {
+                            <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD106>
+                                Change <span class="govuk-visually-hidden">installation address</span>
+                            </a>
+                        }
+
+                        else {
+                            <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD005>
+                                Change <span class="govuk-visually-hidden">installation address</span>
+                            </a>
+                        }
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.IsOnGasGrid != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Property on the gas grid
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.IsOnGasGrid.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD158>
+                            Change <span class="govuk-visually-hidden">whether property is on gas grid</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.IsSocialHousing != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Property meets definition of 'social housing'
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.IsSocialHousing.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD161>
+                            Change <span class="govuk-visually-hidden"> whether property meets definition of 'social housing'</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.IsNewBuild != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Property a 'new build'
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.IsNewBuild.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD009>
+                            Change <span class="govuk-visually-hidden">whether property is a new build</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.IsEligibleSelfBuild != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Property an 'eligible self build'
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.IsEligibleSelfBuild.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD010>
+                            Change <span class="govuk-visually-hidden">whether property is an eligible self build</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.HasEpc != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        EPC issued within the last 10 years
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.HasEpc.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD162>
+                            Change <span class="govuk-visually-hidden">whether EPC issued within the last 10 years</span>
+                        </a>
+                    </dd>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.CreateApplication.EpcReferenceNumber))
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            EPC report reference number
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <p class="govuk-body">@Model.CreateApplication.EpcReferenceNumber</p>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD162>
+                                Change <span class="govuk-visually-hidden">EPC report reference number</span>
+                            </a>
+                        </dd>
+                    </div>
+                }
+            }
+
+            @if (Model.CreateApplication.EpcHasRecommendations != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        EPC has recommendations for loft or cavity wall insulation
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.EpcHasRecommendations.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD164>
+                            Change <span class="govuk-visually-hidden">whether EPC has recommendations for loft or cavity wall insulation</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.EpcHasExemptions != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Property exempt from loft or cavity wall insulation requirements
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.EpcHasExemptions.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD165>
+                            Change <span class="govuk-visually-hidden">whether property is exempt from loft or cavity wall insulation requirements</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Model.CreateApplication.PreviousFuelType))
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Primary fuel type being replaced
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @if (Model.CreateApplication.PreviousFuelType.ToLower() == "lpg")
+                        {
+                            <p class="govuk-body">Liquefied petroleum gas (LPG)</p>
+                        }
+                        else if (Model.CreateApplication.PreviousFuelType.ToLower() == "direct electric")
+                        {
+                            <p class="govuk-body">Direct electric (that is not powering a heat pump)</p>
+                        }
+                        else if (Model.CreateApplication.PreviousFuelType.ToLower() == "none")
+                        {
+                            <p class="govuk-body">None - this is the property's first heating system</p>
+                        }
+                        else {
+                            <p class="govuk-body">@Model.CreateApplication.PreviousFuelType</p>
+                        }
+                        @if (Model.CreateApplication.PreviousFuelType.ToLower() == "other")
+                        {
+                            <p class="govuk-body">@Model.CreateApplication.PreviousFuelTypeOther</p>
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD167>
+                            Change <span class="govuk-visually-hidden">primary fuel type being replaced</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+        </dl>
+
+        <!-- Property owner -->
+        <h2 class="govuk-heading-m">Property owner</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            @if (!string.IsNullOrEmpty(Model.CreateApplication.PropertyOwnerName))
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Full name
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@Model.CreateApplication.PropertyOwnerName</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD019>
+                            Change <span class="govuk-visually-hidden">property owner’s full name</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.CreateApplication.PropertyOwnerTelephoneNumber))
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Telephone number
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@Model.CreateApplication.PropertyOwnerTelephoneNumber</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD019>
+                            Change <span class="govuk-visually-hidden">property owner’s telephone number</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.CanConsentOnline != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Can consent online
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.CanConsentOnline.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD168>
+                            Change <span class="govuk-visually-hidden">whether property owner can consent online</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.CreateApplication.PropertyOwnerEmailAddress))
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Email address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@Model.CreateApplication.PropertyOwnerEmailAddress</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD168>
+                            Change <span class="govuk-visually-hidden">property owner’s email</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.WelshConsent != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Needs to consent in Welsh
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.WelshConsent.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD169>
+                            Change <span class="govuk-visually-hidden">whether property owner needs to consent in Welsh</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.PropertyOwnerAddressIsInstallationAddress != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Lives at installation address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@(Model.CreateApplication.PropertyOwnerAddressIsInstallationAddress.Value ? "Yes" : "No")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD020>
+                            Change <span class="govuk-visually-hidden">whether property owner lives at installation address</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+
+            @if (Model.CreateApplication.PropertyOwnerAddress != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Home address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">
+                            @Model.CreateApplication.PropertyOwnerAddress.AddressLine1<br>
+                            @if (!string.IsNullOrEmpty(Model.CreateApplication.PropertyOwnerAddress.AddressLine2))
+                            {
+                                @Model.CreateApplication.PropertyOwnerAddress.AddressLine2
+                                <br>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.CreateApplication.PropertyOwnerAddress.AddressLine3))
+                            {
+                                @Model.CreateApplication.PropertyOwnerAddress.AddressLine3
+                                <br>
+                            }
+                            @Model.CreateApplication.PropertyOwnerAddress.Postcode
+                            @if (!string.IsNullOrEmpty(Model.CreateApplication.PropertyOwnerAddress.Country))
+                            {
+                                <br>
+                                @Model.CreateApplication.PropertyOwnerAddress.Country
+                            }
+                        </p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD172>
+                            Change <span class="govuk-visually-hidden">property owner’s home address</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+        </dl>
+
+        <h2 class="govuk-heading-m">Quote</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            @if (Model.CreateApplication.QuoteDate != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Date of quote
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@($"{Model.CreateApplication.QuoteDate:dd MMMM yyyy}") </p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD022>
+                            Change <span class="govuk-visually-hidden">the quote date</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+            
+            @if (!string.IsNullOrWhiteSpace(Model.CreateApplication.QuoteReference))
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Quote reference
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@Model.CreateApplication.QuoteReference</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD022>
+                            Change <span class="govuk-visually-hidden">the quote reference</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+            
+            @if (Model.CreateApplication.QuoteAmountTotal != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Total quote amount
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@($"{Model.CreateApplication.QuoteAmountTotal:c}")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD022>
+                            Change <span class="govuk-visually-hidden">the total quote amount</span>
+                        </a>
+                    </dd>
+                </div>
+            }
+            
+            @if (Model.CreateApplication.QuoteBoilerAmount != null)
+            {
+                <div class="govuk-summary-list__row">
+
+                        @if (Model.CreateApplication.TechTypeId == TechTypes.BiomassBoiler)
+                        {
+                        <dt class="govuk-summary-list__key">
+                            Cost of just the biomass boiler to the property owner
+                        </dt>
+                        }
+                        else
+                        {
+                        <dt class="govuk-summary-list__key">
+                            Cost of just the heat pump to the property owner
+                        </dt>
+                        }
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">@($"{Model.CreateApplication.QuoteBoilerAmount:c}")</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD022>
+                            Change
+                            @if (Model.CreateApplication.TechTypeId == TechTypes.BiomassBoiler)
+                            {
+                                <span class="govuk-visually-hidden">the cost of the biomass boiler to the property owner</span>
+                            }
+                            else
+                            {
+                                <span class="govuk-visually-hidden">the cost of the heat pump to the property owner</span>
+                            }
+                        </a>
+                    </dd>
+                </div>
+            }
+        </dl>
+
+        <form method="POST" novalidate>
+            <h3 class="govuk-heading-m">Declaration</h3>
+            <p class="govuk-body">By submitting this application, you are confirming that:</p>
+            <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                <li>no part of the new system or any of the installation costs have been funded by another grant from public funds or by the Energy Company Obligation (you may need to check this with the property owner)</li>
+                <li>the Boiler Upgrade Scheme grant will only be used to fund the installation of an eligible heat pump or biomass boiler</li>
+                <li>the details provided within the application are accurate to the best of your knowledge and belief</li>
+            </ul>
+
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    Ofgem has the power to verify any data submitted, through measures such as inspection and audit. Where Ofgem has concerns over fraud, abuse or misuse of the scheme, it also has the power to revoke scheme vouchers, withhold or recoup payments.
+                </strong>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" type="submit" id="accept-and-send-button">
+                Accept and send
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

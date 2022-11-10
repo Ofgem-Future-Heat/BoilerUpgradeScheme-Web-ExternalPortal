@@ -1,0 +1,58 @@
+﻿@page
+@model PropertyOwnerContactDetailsModel
+@{
+    ViewData["PageId"] = "CD168";
+    ViewData["Title"] = "Is the property owner able to consent to this application online via an email link?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <form method="POST" novalidate>
+            <!-- Email -->
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "QuestionResonse_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-visually-hiddn">
+                        <h1 class="govuk-fieldset__heading">
+                            Is the property owner able to consent to this application online via an email link?
+                        </h1>
+                    </legend>
+                    <p class="govuk-body">If the property owner does not have an email and cannot go online to give their consent, we will have to seek their consent in writing, via paper forms.</p>
+                    
+                    <p id="QuestionResponse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" asp-for="QuestionResponse" type="radio" value="true" aria-controls="conditional-yes" aria-expanded="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional" id="conditional-yes">
+                            <div class="govuk-form-group @(ModelState.HasError("PropertyOwnerEmailAddress") ? "govuk-form-group--error" : null)">
+                                <label class="govuk-label govuk-!-font-weight-bold" for="PropertyOwnerEmailAddress">
+                                    Enter the property owner's email address
+                                </label>
+
+                                <p id="PropertyOwnerEmailAddress_Error" class="govuk-error-message" gds-validation-for="PropertyOwnerEmailAddress"></p>
+
+                                <input class="govuk-input govuk-!-width-two-thirds @(ModelState.HasError("PropertyOwnerEmailAddress") ? "govuk-input--error" : null)" id="PropertyOwnerEmailAddress" asp-for="@Model.PropertyOwnerEmailAddress" value="@Model.PropertyOwnerEmailAddress" type="email" spellcheck="false" autocomplete="email" maxlength="524288" aria-describedby="@(ModelState.HasError("PropertyOwnerEmailAddress") ? "PropertyOwnerEmailAddress_Error": null)">
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" asp-for="QuestionResponse" type="radio" value="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

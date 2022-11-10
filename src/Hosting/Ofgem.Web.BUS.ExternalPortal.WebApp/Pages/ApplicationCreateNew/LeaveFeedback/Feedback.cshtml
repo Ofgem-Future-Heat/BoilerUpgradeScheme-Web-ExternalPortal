@@ -1,0 +1,84 @@
+﻿@page
+@model FeedbackModel
+@{
+    ViewData["PageId"] = "CD175";
+    ViewData["Title"] = "Give feedback on the Boiler Upgrade Scheme ";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            Give feedback on the Boiler Upgrade Scheme
+        </h1>
+        <h2 class="govuk-heading-m">
+            Satisfaction survey
+        </h2>
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="newFeedback-error">
+                    <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
+                        Overall, how do you feel about the process of applying for a Boiler Upgrade Scheme voucher?
+                    </legend>
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" asp-for="QuestionResponse" type="radio" value="5">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Very satisfied
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse2" asp-for="QuestionResponse" type="radio" value="4">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse2">
+                                Satisfied
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse3" asp-for="QuestionResponse" type="radio" value="3">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse3">
+                                Neither satisfied nor dissatisfied
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse4" asp-for="QuestionResponse" type="radio" value="2">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse4">
+                                Dissatisfied
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse5" asp-for="QuestionResponse" type="radio" value="1">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse5">
+                                Very dissatisfied
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="1200">
+                <div class="govuk-form-group @(ModelState.HasError("FeedbackText") ? "govuk-form-group--error" : null)">
+                    <label class="govuk-label govuk-!-font-weight-bold" for="FeedbackText">
+                        How could we improve this service? (optional)
+                    </label>
+                    <div id="FeedbackText-hint" class="govuk-hint">
+                        Do not include personal or financial information, for example your National Insurance or credit card numbers
+                    </div>
+                    <p id="FeedbackText_Error" class="govuk-error-message" gds-validation-for="FeedbackText"></p>
+
+                    <textarea class="govuk-textarea govuk-js-character-count @(ModelState.HasError("FeedbackText") ? "govuk-textarea--error" : "")" id="FeedbackText" asp-for="FeedbackText" rows="5" aria-describedby="FeedbackText-info FeedbackText-hint">
+                    </textarea>
+                    <div id="FeedbackText-info" class="govuk-hint govuk-character-count__message govuk-visually-hidden">
+                        You can enter up to 1200 characters
+                    </div>
+                    <div class="govuk-hint govuk-character-count__message govuk-character-count__status" aria-hidden="true">You can enter up to 1200 characters</div>
+                    <div class="govuk-character-count__sr-status govuk-visually-hidden" aria-live="polite">You can enter up to 1200 characters</div>
+                </div>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>

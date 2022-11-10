@@ -1,0 +1,254 @@
+﻿@using Ofgem.API.BUS.Applications.Domain.Entities.Views
+@using Ofgem.API.BUS.Applications.Domain.Constants;
+@using Ofgem.API.BUS.Applications.Domain.Entities.Enums;
+@using API.BUS.Applications.Domain
+@model ExternalPortalDashboardApplication
+
+<p class="govuk-body govuk-!-margin-bottom-2">
+    @if (Model.VoucherStatusId != null)
+    {
+        if (Model.VoucherStatusId == StatusMappings.VoucherStatus[VoucherStatus.VoucherStatusCode.REVOKED])
+        {
+            <strong class="govuk-tag govuk-tag--grey">
+                Revoked
+            </strong>
+        }
+        else if (Model.VoucherStatusId == StatusMappings.VoucherStatus[VoucherStatus.VoucherStatusCode.REJECTED] ||
+                 Model.VoucherStatusId == StatusMappings.VoucherStatus[VoucherStatus.VoucherStatusCode.REJPEND])
+        {
+            <strong class="govuk-tag govuk-tag--grey">
+                Rejected
+            </strong>
+        }
+        else if (Model.VoucherStatusId == StatusMappings.VoucherStatus[VoucherStatus.VoucherStatusCode.PAID])
+        {
+            <strong class="govuk-tag govuk-tag--grey">
+                Paid
+            </strong>
+        }
+        else if (Model.VoucherStatusId == StatusMappings.VoucherStatus[VoucherStatus.VoucherStatusCode.WITHIN])
+        {
+            <strong class="govuk-tag govuk-tag--red">
+                Reply to Ofgem
+            </strong>
+            if (Model.InstallerReplyByDate != null)
+            {
+                <br>
+                <span class="govuk-!-margin-top-1" style="display: block">Reply by @Model.InstallerReplyByDate.Value.ToString("dd MMMM yyyy")</span>
+            }
+        }
+        else
+        {
+            <strong class="govuk-tag govuk-tag--blue">
+                Reviewing redemption
+            </strong>
+        }
+    }
+    else
+    {
+        if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.SUB])
+        {
+            if (Model.ConsentState == ConsentState.Received)
+            {
+                <strong class="govuk-tag govuk-tag--blue">
+                    Reviewing application
+                </strong>
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent received</strong>
+            }
+            else if (Model.ConsentState == ConsentState.Issued)
+            {
+                <strong class="govuk-tag govuk-tag--red">
+                    Remind owner to consent
+                </strong>
+                @if (Model.ConsentExpiryDate != null)
+                {
+                    <br>
+                    <span class="govuk-!-margin-top-1" style="display: block">Due by @Model.ConsentExpiryDate.Value.ToString("dd MMMM yyyy")</span>
+                }
+            }
+            else
+            {
+                <strong class="govuk-tag govuk-tag--blue">
+                    Reviewing application
+                </strong>
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent not yet issued</strong>
+            }
+
+
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.INRW])
+        {
+            if (Model.ConsentState == ConsentState.Issued)
+            {
+                <strong class="govuk-tag govuk-tag--red">
+                    Remind owner to consent
+                </strong>
+                @if (Model.ConsentExpiryDate != null)
+                {
+                    <br><span class="govuk-!-margin-top-1" style="display: block">Due by @Model.ConsentExpiryDate.Value.ToString("dd MMMM yyyy")</span>
+                }
+            }
+            else if (Model.ConsentState == ConsentState.NotIssued)
+            {
+                <strong class="govuk-tag govuk-tag--blue">
+                    Reviewing application
+                </strong>
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent not yet issued</strong>
+            }
+            else if (Model.ConsentState == ConsentState.Received)
+            {
+                <strong class="govuk-tag govuk-tag--blue">
+                    Reviewing application
+                </strong>
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent received</strong>
+            }
+            else if (Model.ConsentState == ConsentState.Expired)
+            {
+                <strong class="govuk-tag govuk-tag--grey">
+                    Rejected
+                </strong>
+            }
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.WITH])
+        {
+            if (Model.ConsentState == ConsentState.Issued)
+            {
+                <strong class="govuk-tag govuk-tag--red">
+                    Reply to Ofgem
+                </strong>
+                if (Model.InstallerReplyByDate != null)
+                {
+                    <br>
+                    <span class="govuk-!-margin-top-1" style="display: block">Reply by @Model.InstallerReplyByDate.Value.ToString("dd MMMM yyyy")</span>
+                }
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong class="govuk-tag govuk-tag--red">
+                    Remind owner to consent
+                </strong>
+                @if (Model.ConsentExpiryDate != null)
+                {
+                    <br>
+                    <span class="govuk-!-margin-top-1" style="display: block">Due by @Model.ConsentExpiryDate.Value.ToString("dd MMMM yyyy")</span>
+                }
+
+            }
+            else if (Model.ConsentState == ConsentState.NotIssued)
+            {
+                <strong class="govuk-tag govuk-tag--red">
+                    Reply to Ofgem
+                </strong>
+                if (Model.InstallerReplyByDate != null)
+                {
+                    <br>
+                    <span class="govuk-!-margin-top-1" style="display: block">Reply by @Model.InstallerReplyByDate.Value.ToString("dd MMMM yyyy")</span>
+                }
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent not yet issued</strong>
+            }
+            else if (Model.ConsentState == ConsentState.Received)
+            {
+                <strong class="govuk-tag govuk-tag--red">
+                    Reply to Ofgem
+                </strong>
+                if (Model.InstallerReplyByDate != null)
+                {
+                    <br>
+                    <span class="govuk-!-margin-top-1" style="display: block">Reply by @Model.InstallerReplyByDate.Value.ToString("dd MMMM yyyy")</span>
+                }
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent received</strong>
+            }
+            else if (Model.ConsentState == ConsentState.Expired)
+            {
+                <strong class="govuk-tag govuk-tag--grey">
+                    Rejected
+                </strong>
+            }
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.VPEND])
+        {
+            <strong class="govuk-tag govuk-tag--blue">
+                Reviewing application
+            </strong>
+            <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+            <strong>
+                Consent received</strong>
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.VISSD])
+        {
+            <strong class="govuk-tag govuk-tag--green">
+                Voucher issued
+            </strong>
+            @if (Model.VoucherExpiryDate != null)
+            {
+                <br><span class="govuk-!-margin-top-1" style="display: block">Redeem by @Model.VoucherExpiryDate.Value.ToString("dd MMMM yyyy")</span>
+            }
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.VQUED])
+        {
+            <strong class="govuk-tag govuk-tag--blue">
+                Voucher queued
+            </strong>
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.CNTRW])
+        {
+            if (Model.ConsentState == ConsentState.Issued)
+            {
+                <strong class="govuk-tag govuk-tag--red">
+                    Remind owner to consent
+                </strong>
+                @if (Model.ConsentExpiryDate != null)
+                {
+                    <br>
+
+                    <span class="govuk-!-margin-top-1" style="display: block">Due by @Model.ConsentExpiryDate.Value.ToString("dd MMMM yyyy")</span>
+                }
+            }
+            else if (Model.ConsentState == ConsentState.NotIssued)
+            {
+                <strong class="govuk-tag govuk-tag--blue">
+                    Reviewing application
+                </strong>
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent not yet issued</strong>
+            }
+            else if (Model.ConsentState == ConsentState.Received)
+            {
+                <strong class="govuk-tag govuk-tag--blue">
+                    Reviewing application
+                </strong>
+                <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+                <strong>Consent received</strong>
+            }
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.CNTRD])
+        {
+            <strong class="govuk-tag govuk-tag--blue">
+                Reviewing application
+            </strong>
+            <span class="govuk-!-margin-bottom-2 govuk-!-margin-top-2" style="display: block">and&nbsp;</span>
+            <strong>Consent received</strong>
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.REJECTED] ||
+                 Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.RPEND] ||
+                 Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.CNTPS] ||
+                 Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.VEXPD])
+        {
+            <strong class="govuk-tag govuk-tag--grey">
+                Rejected
+            </strong>
+        }
+        else if (Model.ApplicationStatusId == StatusMappings.ApplicationStatus[ApplicationStatus.ApplicationStatusCode.WITHDRAWN])
+        {
+            <strong class="govuk-tag govuk-tag--grey">
+                Cancelled
+            </strong>
+        }
+    }
+</p>
+
+

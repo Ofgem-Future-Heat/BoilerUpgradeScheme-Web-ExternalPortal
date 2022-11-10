@@ -1,0 +1,39 @@
+﻿@page
+@model InstallAddressNotFoundModel
+@{
+    ViewData["PageId"] = "CD180";
+    ViewData["Title"] = "Could not find an address for postcode";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-xl">
+            We could not find an address for your postcode
+        </h1>
+
+        <div class="govuk-form-group">
+            <p class="govuk-body govuk-!-margin-bottom-">
+                <span class="govuk-!-font-weight-bold">Postcode</span><br>
+                @Model.Postcode<br>
+                <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD005>
+                    Change <span class="govuk-visually-hidden">postcode</span>
+                </a>
+            </p>
+            <h2 class="govuk-heading-m">Submit your application via PDF or DOCX form</h2>
+            <p class="govuk-body">For security, we can only process digital applications where we can automatically find an English or Welsh address.</p>
+            <p class="govuk-body">If your postcode is correct and the installation address is in England or Wales, you'll need to start a new application, using one of our PDF or DOCX forms.</p>
+            <p class="govuk-body">The link below will explain how to do this. By clicking it, you'll lose your progress with this digital application.</p>
+        </div>
+
+        <form method="POST" novalidate>
+
+            <p class="govuk-body">
+                <button type="submit" class="moj-clear-application__link govuk-!-font-size-19" asp-route-redirectUrl="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-voucher-application-form">PDF and DOCX voucher application forms</button>
+            </p>
+
+        </form>
+
+    </div>
+</div>
+

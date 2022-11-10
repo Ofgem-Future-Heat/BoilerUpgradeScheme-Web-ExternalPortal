@@ -1,0 +1,65 @@
+﻿@page
+@model EPCRecommendationsExemptModel
+@{
+    ViewData["PageId"] = "CD165";
+    ViewData["Title"] = "Is the property exempt from the scheme's requirement to address these loft and cavity wall insulation recommendations?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            Is the property exempt from the scheme's requirement to address these loft and cavity wall insulation recommendations?
+        </h1>
+        <div class="govuk-form-group">
+            <p class="govuk-body">Property owners do not need to address these EPC recommendations if:</p>
+            <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                <li>the property is affected by atypical local environment conditions, such as regular exposure to driving rain </li>
+                <li>installing loft or cavity wall is not feasible due to the structure of the property, for example the house has a steel or timber frame </li>
+                <li>installing loft or cavity wall insulation would harm protected wildlife </li>
+                <li>the property is in a conservation area </li>
+                <li>the property is a listed building </li>
+                <li>installing loft or cavity wall insulation would be unlawful</li>
+            </ul>
+        </div>
+
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                If you answer 'no', you can still continue, but by doing this you confirm you understand that you cannot redeem a BUS voucher for this project until the property has a new EPC with no recommendations for loft or cavity wall insulation.
+            </strong>
+        </div>
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "QuestionResonse_Error": null)">
+                    <legend class="govuk-visually-hidden">
+                        Is the property exempt from needing to address these loft and cavity wall insulation recommendations?
+                    </legend>
+                    
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" type="radio" asp-for="QuestionResponse" value="true">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" type="radio" value="false" asp-for="QuestionResponse">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

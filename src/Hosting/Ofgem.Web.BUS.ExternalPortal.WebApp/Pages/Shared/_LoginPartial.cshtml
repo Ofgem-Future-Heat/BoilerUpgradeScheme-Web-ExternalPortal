@@ -1,0 +1,14 @@
+﻿@using Ofgem.Web.BUS.ExternalPortal.Core
+@using Ofgem.Web.BUS.ExternalPortal.Core.Extensions
+@{
+    ViewData["userName"] = "Super Seth Nettles";
+    if (User.Identity!.IsAuthenticated)
+    {
+        ViewData["userName"] = User.GetFullName();
+    }
+}
+<label for="signed-in-as"></label>
+@*<span id="signed-in-as" class="ofgem-header__signed-in-links" data-test-id="SignedInAs">
+    Signed in as: @ViewData["userName"]
+</span>
+*@

@@ -1,0 +1,40 @@
+.custom-panel-blocked {
+    background: #1d70b8;
+}
+
+.account-links-container {
+    float: right;
+}
+
+.account-link {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.account-link-2 {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.inverse-text {
+    color: white !important;
+}
+
+.h1-cta {
+    float: right;
+    margin-top: 5px !important;
+}
+
+.bus-dashboard-table {
+    &--name {
+        @include govuk-media-query($from: desktop) {
+            @include maxwidth(200)
+        }
+    }
+
+    &--address {
+        @include govuk-media-query($from: desktop) {
+            @include maxwidth(275)
+        }
+    }
+}

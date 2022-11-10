@@ -1,0 +1,200 @@
+﻿@using API.BUS.Applications.Domain
+@model Application
+
+<h2 class="govuk-heading-l govuk-!-margin-top-8">Voucher application details</h2>
+<p class="govuk-body">Here's the information we received for this project.</p>
+<h3 class="govuk-heading-m">Installation</h3>
+
+<dl class="govuk-summary-list">
+    @if (Model.TechType != null)
+    {
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Technology type
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.TechType.TechTypeDescription
+            </dd>
+        </div>
+    }
+    
+    @if (Model.InstallationAddress != null)
+    {
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Installation address
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.InstallationAddress.AddressLine1<br>
+                @if (!string.IsNullOrEmpty(Model.InstallationAddress.AddressLine2))
+                {
+                    @Model.InstallationAddress.AddressLine2<br>
+                }
+                @if (!string.IsNullOrEmpty(Model.InstallationAddress.AddressLine3))
+                {
+                    @Model.InstallationAddress.AddressLine3<br>
+                }
+                @if (!string.IsNullOrEmpty(Model.InstallationAddress.County))
+                {
+                    @Model.InstallationAddress.County<br>
+                }
+                @Model.InstallationAddress.Postcode
+            </dd>
+        </div>
+    }
+    
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+            Type of project
+        </dt>
+        <dd class="govuk-summary-list__value">
+            @if (Model.IsSelfBuild != null && Model.IsSelfBuild == true)
+            {
+                @:Eligible self build
+            }
+            else
+            {
+                @:Retrofit
+            }
+        </dd>
+    </div>
+
+    @if (Model.IsSelfBuild == null || Model.IsSelfBuild == false)
+    {
+        if (Model.Epc != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    EPC report reference number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.Epc.EpcReferenceNumber
+                </dd>
+            </div>
+        }
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Are there loft and cavity wall issues to address?<br>
+                <span class="govuk-!-font-weight-regular govuk-body-s secondary-text">These are recommendations in the EPC report that must be addressed before you claim your money at the end of the project.</span>
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @if (Model.IsLoftCavityExempt != null && Model.IsLoftCavityExempt == true)
+                {
+                    @:Yes
+                }
+                else
+                {
+                    @:No
+                }
+            </dd>
+        </div>
+    }
+</dl>
+
+@if (Model.PropertyOwnerDetail != null)
+{
+    <h3 class="govuk-heading-m govuk-!-margin-top-4">Property owner</h3>
+    <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Name
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.PropertyOwnerDetail.FullName
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Email
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.PropertyOwnerDetail.Email
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Telephone
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.PropertyOwnerDetail.TelephoneNumber
+            </dd>
+        </div>
+
+        @if (Model.PropertyOwnerDetail.PropertyOwnerAddress != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Home address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine1<br>
+                    @if (!string.IsNullOrEmpty(Model.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine2))
+                    {
+                        @Model.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine2<br>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine3))
+                    {
+                        @Model.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine3<br>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.PropertyOwnerDetail.PropertyOwnerAddress.County))
+                    {
+                        @Model.PropertyOwnerDetail.PropertyOwnerAddress.County<br>
+                    }
+                    @Model.PropertyOwnerDetail.PropertyOwnerAddress.Postcode<br>
+                </dd>
+            </div>
+        }
+    </dl>
+}
+
+<h3 class="govuk-heading-m govuk-!-margin-top-4">Quote details</h3>
+<dl class="govuk-summary-list">
+    @if (Model.DateOfQuote != null)
+    {
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Date
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @($"{Model.DateOfQuote:dd MMMM yyyy}")
+            </dd>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.QuoteReferenceNumber))
+    {
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Quote reference
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.QuoteReferenceNumber
+            </dd>
+        </div>
+    }
+    
+    @if (Model.QuoteAmount != null)
+    {
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Total quote amount
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @($"{Model.QuoteAmount:c}")
+            </dd>
+        </div>
+    }
+    
+    @if (Model.QuoteProductPrice != null)
+    {
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Cost of the heat pump or biomass boiler
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @($"{Model.QuoteProductPrice:c}")
+            </dd>
+        </div>
+    }
+</dl>

@@ -1,0 +1,97 @@
+﻿@page
+@model PropertyOwnerAddressFormModel
+@{
+    ViewData["PageId"] = "CD174";
+    ViewData["Title"] = "Enter property owner's home address";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="govuk-error-summary" data-module="error-summary" aria-labelledby="error-summary-title">
+                <h2 class="govuk-error-summary__title" id="error-summary-title">
+                     There is a problem
+                 </h2>
+                <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @if (ViewBag.SortedErrors != null)
+                     {
+                         @for (int i = 0; i < ViewBag.SortedErrors.Length; i++)
+                         {
+                            <li><a href="#@ViewBag.SortedErrorsKey[i]">@ViewBag.SortedErrors[i]</a></li>
+                         }
+                     }
+                </ul>
+                </div>
+            </div>
+        }
+
+        <form method="POST" novalidate>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-8">
+                    <h1 class="govuk-fieldset__heading">
+                        What is the property owner's home address?
+                    </h1>
+                </legend>
+
+                <div class="govuk-form-group @(ModelState.HasError("AddressLine1") ? "govuk-form-group--error" : null)">
+                    <label class="govuk-label" asp-for="AddressLine1">
+                        Address line 1
+                    </label>
+                    <div id="AddressLine1-hint" class="govuk-hint">
+                        Include flat and floor numbers, where appropriate
+                    </div>
+                    <p id="AddressLine1_Error" class="govuk-error-message" gds-validation-for="AddressLine1"></p>
+                    <input class="govuk-input @(ModelState.HasError("AddressLine1") ? "govuk-input--error" : null)" id="AddressLine1" maxlength="524288" asp-for="AddressLine1" type="text" autocomplete="address-line1" aria-describedby="AddressLine1-hint @(ModelState.HasError("AddressLine1") ? "AddressLine1_Error": null)">
+                </div>
+
+                <div class="govuk-form-group @(ModelState.HasError("AddressLine2") ? "govuk-form-group--error" : null)">
+                    <label class="govuk-label" asp-for="AddressLine2">
+                        Address line 2 (optional)
+                    </label>
+                    <p id="AddressLine2_Error" class="govuk-error-message" gds-validation-for="AddressLine2"></p>
+                    <input class="govuk-input @(ModelState.HasError("AddressLine2") ? "govuk-input--error" : null)" id="AddressLine2" maxlength="524288" asp-for="AddressLine2" type="text" autocomplete="address-line2" aria-describedby="@(ModelState.HasError("AddressLine2") ? "AddressLine2_Error": null)">
+                </div>
+
+                <div class="govuk-form-group @(ModelState.HasError("Town") ? "govuk-form-group--error" : null)">
+                    <label class="govuk-label" asp-for="Town">
+                        Town or city
+                    </label>
+                    <p id="Town_Error" class="govuk-error-message" gds-validation-for="Town"></p>
+                    <input class="govuk-input govuk-!-width-two-thirds @(ModelState.HasError("Town") ? "govuk-input--error" : null)" id="Town" maxlength="524288" asp-for="Town" type="text" autocomplete="address-level2" aria-describedby="@(ModelState.HasError("Town") ? "Town_Error": null)">
+                </div>
+
+                <div class="govuk-form-group @(ModelState.HasError("County") ? "govuk-form-group--error" : null)">
+                    <label class="govuk-label" asp-for="County">
+                        County (optional)
+                    </label>
+                    <p id="County_Error" class="govuk-error-message" gds-validation-for="County"></p>
+                    <input class="govuk-input govuk-!-width-two-thirds @(ModelState.HasError("County") ? "govuk-input--error" : null)" id="County" maxlength="524288" asp-for="County" type="text" aria-describedby="@(ModelState.HasError("County") ? "County_Error": null)">
+                </div>
+
+                <div class="govuk-form-group @(ModelState.HasError("Postcode") ? "govuk-form-group--error" : null)">
+                    <label class="govuk-label" asp-for="Postcode">
+                        Postal code or zip code
+                    </label>
+                    <p id="Postcode_Error" class="govuk-error-message" gds-validation-for="Postcode"></p>
+                    <input class="govuk-input govuk-input--width-10 @(ModelState.HasError("Postcode") ? "govuk-input--error" : null)" id="Postcode" maxlength="20" asp-for="Postcode" type="text" autocomplete="postal-code" aria-describedby="@(ModelState.HasError("Postcode") ? "Postcode_Error": null)">
+                </div>
+
+                <div class="govuk-form-group @(ModelState.HasError("Country") ? "govuk-form-group--error" : null)">
+                    <label class="govuk-label" asp-for="Country">
+                        Country
+                    </label>
+                    <p id="Country_Error" class="govuk-error-message" gds-validation-for="Country"></p>
+                    <input class="govuk-input govuk-!-width-two-thirds @(ModelState.HasError("Country") ? "govuk-input--error" : null)" id="Country" maxlength="524288" asp-for="Country" type="text" autocomplete="country-name" aria-describedby="@(ModelState.HasError("Country") ? "Country_Error": null)">
+                </div>
+            </fieldset>
+
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

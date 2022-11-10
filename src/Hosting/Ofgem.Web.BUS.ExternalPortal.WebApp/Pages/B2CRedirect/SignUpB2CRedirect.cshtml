@@ -1,0 +1,22 @@
+﻿@page
+@using System.Security.Claims
+@using System.Security.Principal;
+@using Ofgem.Web.BUS.ExternalPortal.Core.Constants
+
+@model Ofgem.Web.BUS.ExternalPortal.WebApp.Pages.B2CRedirect.SignUpB2CRedirectModel
+@{
+    ViewData["Title"] = "You are now set up to use the Boiler Upgrade Scheme online";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-xl">You are now set up to use the Boiler Upgrade Scheme online</h1>
+
+        <form method="POST" novalidate>
+            <button class="govuk-button" data-module="govuk-button" asp-page-handler="homeButton">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>

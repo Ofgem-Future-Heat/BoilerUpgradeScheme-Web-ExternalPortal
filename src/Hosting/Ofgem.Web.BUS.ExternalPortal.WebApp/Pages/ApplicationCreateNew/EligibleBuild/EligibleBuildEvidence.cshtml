@@ -1,0 +1,60 @@
+﻿@page
+@model EligibleBuildEvidenceModel
+@{
+    ViewData["PageId"] = "CD163";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+            Upload evidence
+        </h1>
+        <div class="govuk-form-group">
+            <p class="govuk-body">You must upload evidence to prove that the property is an eligible self build.</p>
+            <p class="govuk-body">Successful evidence will clearly show the following:</p>
+            <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                <li>that the first owner built the property using mainly their own resources</li>
+                <li>that this person was an individual (and clearly show their name)</li>
+                <li>that any subsequent owners have all been individuals (and clearly show their names)</li>
+                <li>the address of the property (if the property does not yet have an address, we will accept a temporary address given by the local authority, an approved planning reference number or the coordinates of the property)</li>
+            </ul>
+            <h2 class="govuk-heading-l">Examples of acceptable evidence </h2>
+            <p class="govuk-body">These include digital copies of:</p>
+            <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                <li>proof of property ownership (eg a copy of title deeds, contract of sale)</li>
+                <li>documents confirming a self-build VAT exemption or receipt of a self-build loan or mortgage</li>
+                <li>an invoice for substantial structural materials (eg foundations or timber frame)</li>
+                <li>self-build insurance</li>
+                <li>planning permission documents</li>
+                <li>invoices or contracts for builders or tradespeople</li>
+                <li>bank statement</li>
+            </ul>
+        </div>
+        <form method="POST" novalidate>
+            <div class="govuk-form-group ">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-">
+                        <h2 class="govuk-fieldset__heading">
+                            Upload files one at a time
+                        </h2>
+                    </legend>
+                    <div class="govuk-form-group">
+                        <p class="govuk-body">You can upload a maximum of 6 files.</p>
+                        <p class="govuk-body">Files must:</p>
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>be in PDF, DOCX, JPG or PNG format</li>
+                            <li>not exceed 10MB in size </li>
+                        </ul>
+                    </div>
+                    <label class="govuk-label govuk-visually-hidden" for="newEligibleBuildEvidence">
+                        Upload a file
+                    </label>
+                    <input class="govuk-file-upload" id="newEligibleBuildEvidence" name="newEligibleBuildEvidence" type="file">
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

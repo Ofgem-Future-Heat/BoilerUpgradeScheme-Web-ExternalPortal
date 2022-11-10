@@ -1,0 +1,43 @@
+﻿@page
+@model InstallPostcodeModel
+@{
+    ViewData["PageId"] = "CD05";
+    ViewData["Title"] = "What is the installation address?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            What is the installation address?
+        </h1>
+
+        <div class="govuk-form-group">
+            <p class="govuk-body">The property must be in England or Wales.</p>
+        </div>
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("InstallationAddressPostcode") ? "govuk-form-group--error" : null)">
+                <label class="govuk-label govuk-!-font-weight-bold" asp-for="InstallationAddressPostcode">
+                    Postcode
+                </label>
+
+                <p id="InstallationAddressPostcode_Error" class="govuk-error-message" gds-validation-for="InstallationAddressPostcode"></p>
+
+                <input class="govuk-input govuk-input--width-10 @(ModelState.HasError("InstallationAddressPostcode") ? "govuk-input--error" : null)" id="InstallationAddressPostcode" asp-for="InstallationAddressPostcode" type="text" autocomplete="postal-code" aria-describedby="@(ModelState.HasError("InstallationAddressPostcode") ? "InstallationAddressPostcode_Error" : null)">
+            </div>
+            <p class="govuk-body govuk-!-margin-bottom-6">
+                <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD106>
+                    Enter address manually
+                </a>
+            </p>
+
+            <button id="continue-button" class="govuk-button" data-module="govuk-button" type="submit">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+
+        </form>
+    </div>
+</div>

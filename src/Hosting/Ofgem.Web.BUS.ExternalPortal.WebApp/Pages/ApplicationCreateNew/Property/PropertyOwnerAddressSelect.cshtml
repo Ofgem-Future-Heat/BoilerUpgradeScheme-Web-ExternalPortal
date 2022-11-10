@@ -1,0 +1,52 @@
+﻿@page
+@model PropertyOwnerAddressSelectModel
+@{
+    ViewData["PageId"] = "CD173";
+    ViewData["Title"] = "Choose the property owner's home address";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            What is the property owner's home address?
+        </h1>
+
+        <div class="govuk-form-group">
+            <p class="govuk-body govuk-!-margin-bottom-">
+                <strong>UK postcode</strong><br>
+                @Model.Postcode<br>
+                <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD172>
+                    Change <span class="govuk-visually-hidden">postcode</span>
+                </a>
+            </p>
+        </div>
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("SelectedAddressUprn") ? "govuk-form-group--error" : null)">
+                <label class="govuk-label govuk-!-font-weight-bold" asp-for="SelectedAddressUprn">
+                    Select an address
+                </label>
+                
+                <p id="SelectedAddressUprn_Error" class="govuk-error-message" gds-validation-for="SelectedAddressUprn"></p>
+
+                <select class="govuk-select @(ModelState.HasError("SelectedAddressUprn") ? "govuk-input--error" : null)" id="SelectedAddressUprn" asp-for="SelectedAddressUprn" asp-items="Model.Addresses" aria-describedby="@(ModelState.HasError("SelectedAddressUprn") ? "SelectedAddressUprn_Error": null)">
+                    <option>@(Model.Addresses.Count() == 1 ? "1 address found" : $"{Model.Addresses.Count()} addresses found")</option>
+                </select>
+            </div>
+
+            <p class="govuk-body govuk-!-margin-bottom-6">
+                <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD174>
+                    Enter address manually
+                </a>
+            </p>
+
+            <button id="continue-button" class="govuk-button" data-module="govuk-button" type="submit">
+                Continue
+            </button>
+
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

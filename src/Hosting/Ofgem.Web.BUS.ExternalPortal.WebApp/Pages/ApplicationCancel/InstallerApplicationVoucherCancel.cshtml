@@ -1,0 +1,22 @@
+﻿@page
+@model InstallerApplicationVoucherCancelModel
+@{
+    ViewData["PageId"] = "CD154";
+    ViewData["Title"] = "Cancel voucher";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Cancel voucher</h1>
+        <p class="govuk-body">To cancel this voucher, contact the Boiler Upgrade Scheme (BUS) support team at Ofgem:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>Email: <a href="mailto:BUS.application@ofgem.gov.uk" class="govuk-link govuk-link--no-visited-state">BUS.application@ofgem.gov.uk</a></li>
+            <li>Tel: 0330 053 2006</li>
+        </ul>
+        <p class="govuk-body">You will need to provide:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>your business’s installer account ID (<strong>@Model.BusinessAccountNumber</strong>)</li>
+            <li>the voucher ID (<strong>@Model.ApplicationId</strong>)</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@page
+@model FeedbackDoneModel
+@{
+    ViewData["PageId"] = "CD176";
+    ViewData["Title"] = "Feedback received";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+            Thank you for your feedback
+        </h1>
+        <form method="POST" novalidate>
+            <p class="govuk-body">
+                <input id="back-home-application" type="submit" class="govuk-button" value="Back to account home" asp-page-handler="homeButton">
+            </p>
+        </form>
+    </div>
+</div>

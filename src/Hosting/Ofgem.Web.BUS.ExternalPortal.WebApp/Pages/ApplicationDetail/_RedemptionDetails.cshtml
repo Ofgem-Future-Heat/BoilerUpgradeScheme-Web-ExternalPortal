@@ -1,0 +1,200 @@
+﻿@using API.BUS.Applications.Domain
+@model InstallerApplicationDetailModel
+
+@if (Model.Application != null)
+{
+    <h2 class="govuk-heading-l govuk-!-margin-top-8">Voucher redemption details</h2>
+    <p class="govuk-body">A redemption request was submitted for the following voucher.</p>
+    <h3 class="govuk-heading-m">Voucher</h3>
+
+    <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Voucher ID
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.Application.ReferenceNumber
+            </dd>
+        </div>
+
+        @if (Model.Application.Voucher?.Grant != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Voucher amount
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @($"{Model.Application.Voucher.Grant.Amount:c}")
+                </dd>
+            </div>
+        }
+
+        @if (Model.BusinessAccount != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Issued to
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @if (!string.IsNullOrEmpty(Model.BusinessAccount.TradingName))
+                    {
+                        <span>@Model.BusinessAccount.BusinessName (trading as @Model.BusinessAccount.TradingName)</span>
+                    }
+                    else
+                    {
+                        <span>@Model.BusinessAccount.BusinessName</span>
+                    }
+                </dd>
+            </div>
+        }
+        
+        @if (Model.Application.Voucher?.IssuedDate != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Issued on
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @($"{Model.Application.Voucher.IssuedDate:dd MMMM yyyy}")
+                </dd>
+            </div>
+        }
+
+        @if (Model.Application.Voucher?.ExpiryDate != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Expires on
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @($"{Model.Application.Voucher.ExpiryDate:dd MMMM yyyy}")
+                </dd>
+            </div>
+        }
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                Issued with conditions?
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @if ((!Model.Application.IsNewBuild ?? false) && (!Model.Application.IsLoftCavityExempt ?? false))
+                {
+                    @:Yes. Before this voucher is redeemed, make sure the property has a new EPC without any recommendations for loft or cavity wall insulation.
+                }
+                else
+                {
+                    @:No
+                }
+            </dd>
+        </div>
+    </dl>
+
+    <h3 class="govuk-heading-m">Installation</h3>
+
+    <dl class="govuk-summary-list">
+        @if (Model.Application.TechType != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Technology type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.Application.TechType.TechTypeDescription
+                </dd>
+            </div>
+        }
+
+        @if (Model.Application.InstallationAddress != null)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Installation address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.Application.InstallationAddress.AddressLine1<br>
+                    @if (!string.IsNullOrEmpty(Model.Application.InstallationAddress.AddressLine2))
+                    {
+                        @Model.Application.InstallationAddress.AddressLine2
+
+                        <br>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Application.InstallationAddress.AddressLine3))
+                    {
+                        @Model.Application.InstallationAddress.AddressLine3
+
+                        <br>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Application.InstallationAddress.County))
+                    {
+                        @Model.Application.InstallationAddress.County
+
+                        <br>
+                    }
+                    @Model.Application.InstallationAddress.Postcode
+                </dd>
+            </div>
+        }
+    </dl>
+
+    @if (Model.Application.PropertyOwnerDetail != null)
+    {
+        <h3 class="govuk-heading-m govuk-!-margin-top-4">Property owner</h3>
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.Application.PropertyOwnerDetail.FullName
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Email
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.Application.PropertyOwnerDetail.Email
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                    Telephone
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.Application.PropertyOwnerDetail.TelephoneNumber
+                </dd>
+            </div>
+
+            @if (Model.Application.PropertyOwnerDetail.PropertyOwnerAddress != null)
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                        Home address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine1<br>
+                        @if (!string.IsNullOrEmpty(Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine2))
+                        {
+                            @Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine2
+
+                            <br>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine3))
+                        {
+                            @Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.AddressLine3
+
+                            <br>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.County))
+                        {
+                            @Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.County
+
+                            <br>
+                        }
+                        @Model.Application.PropertyOwnerDetail.PropertyOwnerAddress.Postcode<br>
+                    </dd>
+                </div>
+            }
+        </dl>
+    }
+}

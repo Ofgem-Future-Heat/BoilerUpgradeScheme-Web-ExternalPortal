@@ -1,0 +1,103 @@
+﻿@page
+@model EligibleBuildEvidenceUploadedFilesModel
+@{
+    ViewData["PageId"] = "CD177-Uploaded";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+            Upload evidence
+        </h1>
+        <h2 class="govuk-heading-l">
+            Files added
+        </h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    File 1
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="#">build-evidence-1.docx</a> (2MB)</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="installer-application-new-eligible-build-evidence-check?delete=build-evidence-1.docx">
+                        Delete<span class="govuk-visually-hidden"> </span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    File 2
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="#">build-evidence-2.docx</a> (2MB)</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="installer-application-new-eligible-build-evidence-check?delete=build-evidence-2.docx">
+                        Delete<span class="govuk-visually-hidden"> </span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    File 3
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="#">build-evidence-3.docx</a> (2MB)</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="installer-application-new-eligible-build-evidence-check?delete=build-evidence-3.docx">
+                        Delete<span class="govuk-visually-hidden"> </span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    File 4
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="#">build-evidence-4.docx</a> (2MB)</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="installer-application-new-eligible-build-evidence-check?delete=build-evidence-4.docx">
+                        Delete<span class="govuk-visually-hidden"> </span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    File 5
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="#">build-evidence-5.docx</a> (2MB)</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="installer-application-new-eligible-build-evidence-check?delete=build-evidence-5.docx">
+                        Delete<span class="govuk-visually-hidden"> </span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    File 6
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    <p class="govuk-body"><a class="govuk-link govuk-link--no-visited-state" href="#">build-evidence-6.docx</a> (2MB)</p>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link govuk-link--no-visited-state" href="installer-application-new-eligible-build-evidence-check?delete=build-evidence-6.docx">
+                        Delete<span class="govuk-visually-hidden"> </span>
+                    </a>
+                </dd>
+            </div>
+        </dl>
+        <form method="POST" novalidate>
+            <h2 class="govuk-heading-l">Maximum number of files added</h2>
+            <p class="govuk-body govuk-!-margin-bottom-6">If you need to add any more files, you'll need to delete one that you've already uploaded. Otherwise, you can continue.</p>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿@page
+@model PropertyOwnerPostcodeModel
+@{
+    ViewData["PageId"] = "CD172";
+    ViewData["Title"] = "What is the property owner's home address?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            What is the property owner's home address?
+        </h1>
+
+        <div class="govuk-form-group">
+            <p class="govuk-body">
+                If they do not have a UK postcode, enter the address manually.
+            </p>
+        </div>
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("PropertyOwnerAddressPostcode") ? "govuk-form-group--error" : null)">
+                <label class="govuk-label govuk-!-font-weight-bold" asp-for="PropertyOwnerAddressPostcode">
+                    UK postcode
+                </label>
+                
+                <p id="PropertyOwnerAddressPostcode_Error" class="govuk-error-message" gds-validation-for="PropertyOwnerAddressPostcode"></p>
+
+                <input class="govuk-input govuk-input--width-10 @(ModelState.HasError("PropertyOwnerAddressPostcode") ? "govuk-input--error" : null)" id="PropertyOwnerAddressPostcode" asp-for="PropertyOwnerAddressPostcode" type="text" autocomplete="postal-code" aria-describedby="@(ModelState.HasError("PropertyOwnerAddressPostcode") ? "PropertyOwnerAddressPostcode_Error": null)">
+            </div>
+
+            <p class="govuk-body govuk-!-margin-bottom-6">
+                <a class="govuk-link govuk-link--no-visited-state" asp-page=@Routes.Pages.Path.CD174>
+                    Enter address manually
+                </a>
+            </p>
+
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

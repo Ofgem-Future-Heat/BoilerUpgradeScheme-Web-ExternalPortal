@@ -1,0 +1,11 @@
+@for $i from 0 through 15 {
+    $width: 25 * $i;
+
+    .bus-maxwidth-#{$width} {
+        @include maxwidth($width)
+    }
+
+    .bus-minwidth-#{$width} {
+        @include minwidth($width)
+    }
+}

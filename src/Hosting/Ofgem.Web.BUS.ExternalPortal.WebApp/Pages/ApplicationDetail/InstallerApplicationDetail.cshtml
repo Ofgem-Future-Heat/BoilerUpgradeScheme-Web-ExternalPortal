@@ -1,0 +1,128 @@
+﻿@page
+@model InstallerApplicationDetailModel
+@{
+    ViewData["PageId"] = "CD149";
+    ViewData["Title"] = "Application detail";
+}
+
+@if (Model.Application != null)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <span class="govuk-caption-xl">Application ID: @Model.Application.ReferenceNumber</span>
+            <h1 class="govuk-heading-xl">@Model.Application.InstallationAddress.Postcode, @Model.Application.PropertyOwnerDetail.FullName</h1>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list govuk-!-margin-bottom-4">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                        Status
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <p class="govuk-body">
+                            <partial name="_StatusTag" model="Model">
+                        </p>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                        Further information
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <partial name="_FurtherInformation" model="Model">
+                    </dd>
+                </div>
+                @if (Model.ApplicationSubmitter != null)
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Application submitted by
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress)
+                        </dd>
+                    </div>
+                }
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                        Current contact for this application
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.CurrentContactFullName (@Model.CurrentContactEmailAddress)
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                        Date application submitted
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @($"{Model.Application.ApplicationDate:dd MMMM yyyy}")
+                    </dd>
+                </div>
+
+                @if (Model.ShowConsentReceived && Model.ConsentRequest != null)
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Date property owner consent received
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @($"{Model.ConsentRequest.ConsentReceivedDate:dd MMMM yyyy}")
+                        </dd>
+                    </div>
+                }
+
+                @if (Model.IsVoucherRedeemed && Model.Application.Voucher != null)
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Voucher redemption requested by
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.ApplicationSubmitter?.FullName (@Model.ApplicationSubmitter?.EmailAddress)
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key govuk-!-width-one-third">
+                            Date redemption submitted
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @($"{Model.Application.Voucher.RedemptionRequestDate:dd MMMM yyyy}")
+                        </dd>
+                    </div>
+                }
+            </dl>
+
+            <div class="govuk-button-group govuk-!-margin-top-6">
+                @if (Model.ShowRedeemVoucherButton)
+                {
+                    <a class="govuk-button" asp-page=@Routes.Pages.Path.CD152 asp-route-voucherId=@Model.Application.ReferenceNumber>Redeem voucher</a>
+                }
+                @if (Model.ShowCancelApplicationButton)
+                {
+                    <a class="govuk-button govuk-button--secondary govuk-button--secondary-bottom" asp-page=@Routes.Pages.Path.CD154a asp-route-applicationId=@Model.Application.ReferenceNumber>Cancel application</a>
+                }
+                @if (Model.ShowCancelVoucherButton)
+                {
+                    <a class="govuk-button govuk-button--secondary govuk-button--secondary-bottom" asp-page=@Routes.Pages.Path.CD154v asp-route-voucherId=@Model.Application.ReferenceNumber>Cancel voucher</a>
+                }
+            </div>
+
+            @if (Model.ShowApplicationDetails)
+            {
+                <partial name="_ApplicationDetails" model="Model.Application" />
+            }
+            else if (Model.ShowVoucherDetails)
+            {
+                <partial name="_VoucherDetails" model="Model" />
+            }
+            else if (Model.ShowRedemptionDetails)
+            {
+                <partial name="_RedemptionDetails" model="Model" />
+            }
+        </div>
+    </div>
+}

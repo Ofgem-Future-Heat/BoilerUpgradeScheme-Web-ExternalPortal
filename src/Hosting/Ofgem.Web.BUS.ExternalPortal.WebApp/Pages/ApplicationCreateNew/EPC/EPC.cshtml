@@ -1,0 +1,66 @@
+﻿@page
+@model EPCModel
+@{
+    ViewData["PageId"] = "CD162";
+    ViewData["Title"] = "Does the property have an EPC issued within the last 10 years?";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "newEPC-error": null)" >
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h1 class="govuk-fieldset__heading">
+                            Does the property have an EPC issued within the last 10 years?
+                        </h1>
+                    </legend>
+                    
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" asp-for="QuestionResponse" type="radio" value="true" aria-controls="conditional-yes" aria-expanded="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional" id="conditional-yes">
+                            <div class="govuk-form-group @(ModelState.HasError("EpcReferenceNumber") ? "govuk-form-group--error" : null)">
+                                <label class="govuk-label govuk-!-font-weight-bold" for="newEPCNumber">
+                                    What is the property's EPC report reference number?
+                                </label>
+                                <div id="newEPCNumber-hint-1" class="govuk-hint">
+                                    For commercial properties, enter the CEPC report reference number.
+                                </div>
+                                <div id="newEPCNumber-hint-2" class="govuk-hint">
+                                    For example, 1234-5678-9101-1213-1516.
+                                </div>
+                                
+                                <p id="EpcReferenceNumber_Error" class="govuk-error-message" gds-validation-for="EpcReferenceNumber"></p>
+
+                                <input class="govuk-input govuk-!-width-two-thirds @(ModelState.HasError("EpcReferenceNumber") ? "govuk-input--error" : "")"
+                                       id="EpcReferenceNumber" asp-for="EpcReferenceNumber" type="text"
+                                       aria-describedby="@(ModelState.HasError("EpcReferenceNumber") ? "EpcReferenceNumber_Error" : "") newEPCNumber-hint-1 newEPCNumber-hint-2" value="@Model.EpcReferenceNumber" maxlength="524288">
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" asp-for="QuestionResponse" type="radio" value="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

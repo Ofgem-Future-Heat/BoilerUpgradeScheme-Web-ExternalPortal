@@ -1,0 +1,213 @@
+﻿@page
+@model InstallerApplicationsModel
+@{
+    ViewData["PageId"] = "CD155";
+    ViewData["Title"] = "Boiler Upgrade Scheme applications";
+}
+@* Legend *@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-xl">
+            @if (!string.IsNullOrEmpty(Model.BusinessAccountData?.TradingName))
+            {
+                <span id="business-trading-name">@Model.BusinessAccountData.BusinessName (trading as @Model.BusinessAccountData.TradingName)</span>
+            }
+            else
+            {
+                <span id="business-trading-name">@Model.BusinessAccountData?.BusinessName</span>
+            }
+            <br />
+            <span class="govuk-!-margin-top-1" id="business-account-number">Account ID: @Model.BusinessAccountData?.BusinessAccountNumber</span>
+        </span>
+
+        @if ((Model.Applications == null || !Model.Applications.Any()) && (Model.SearchBy?.Length == 0 && Model.SelectedFilterValue?.Length == 0))
+        {
+            <h1 class="govuk-heading-xl">No applications</h1>
+            @if (Model.IsAllowedCreateNewCase)
+            {
+                <a id="create-a-new-application-button" asp-page=@Routes.Pages.Path.CD151 class="govuk-button">
+                    Create new application
+                </a>
+            }
+        }
+
+    </div>
+</div>
+
+@if ((Model.Applications != null && Model.Applications.Any()) || (Model.SearchBy?.Length > 0 || Model.SelectedFilterValue?.Length > 0))
+{
+    @* Create Business Account button *@
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Applications</h1>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            @if (Model.IsAllowedCreateNewCase)
+            {
+                <a id="create-new-application-button" asp-page=@Routes.Pages.Path.CD151 class="govuk-button h1-cta">
+                    Create new application
+                </a>
+            }
+        </div>
+    </div>
+    @* Filters *@
+    <div class="govuk-grid-column-full custom-panel custom-panel-blocked govuk-!-margin-bottom-5 govuk-!-padding-4">
+        <div class="govuk-grid-row ">
+            <form id="installerapplications-post" method="post" novalidate>
+                <div class="govuk-grid-column-one-half">
+                    <div class="govuk-form-group govuk-!-margin-bottom-5">
+                        <div class="govuk-form-group">
+                            <label for="search-by" class="govuk-label inverse-text">
+                                Search ID, address or property owner
+                            </label>
+                            <div class="search-input-wrapper">
+                                <input id="search-by" type="search" class="govuk-input" asp-for="@Model.SearchBy" value="@Model.SearchBy"
+                                   pattern="^[A-Za-z0-9- ][A-Za-z0-9- ]*$">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-form-group govuk-!-margin-bottom-5">
+                        <label class="govuk-label inverse-text" for="status-dropdown-list">
+                            Filter by status
+                        </label>
+                        <select id="status-dropdown-list" class="govuk-select"
+                            name="status-dropdown"
+                            asp-for="SelectedFilterKey"
+                            asp-items="@Model.FilterSelectListItems">
+                        </select>
+                    </div>
+                </div>
+                <div class="govuk-grid-column-two-thirds">
+                    <button id="search-filter-button" class="govuk-button govuk-button--secondary govuk-button--secondary-bottom govuk-!-margin-bottom-0" data-module="govuk-button" type="submit"
+                        asp-page-handler="ApplySearchAndFilters">
+                        Apply search and filter
+                    </button>
+                    <p class="govuk-body clear-link govuk-!-margin-bottom-0">
+                        @if (Model.SearchBy?.Length > 0 || Model.SelectedFilterKey?.Length > 0)
+                        {
+                            <a id="clear-filter-heading" href="/" class="govuk-link govuk-link--inverse govuk-!-font-size-19">Clear search and filter</a>
+                        }
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    string displayLegend = string.Empty;
+
+    if (Model.SearchBy?.Length > 0)
+    {
+        if (Model.Applications?.Count() == 1)
+        {
+            displayLegend = $"{Model.Applications?.Count()} result for '{Model.SearchBy}'";
+        }
+        else
+        {
+            displayLegend = $"{Model.Applications?.Count()} results for '{Model.SearchBy}'";
+        }
+    }
+    if (Model.SelectedFilterValue?.Length > 0)
+    {
+        if (Model.Applications?.Count() == 1)
+        {
+            displayLegend = $"{Model.Applications?.Count()} result with a status of '{Model.SelectedFilterValue}'";
+        }
+        else
+        {
+            displayLegend = $"{Model.Applications?.Count()} results with a status of '{Model.SelectedFilterValue}'";
+        }
+    }
+    if (Model.SearchBy?.Length > 0 && Model.SelectedFilterValue?.Length > 0)
+    {
+        if (Model.Applications?.Count() == 1)
+        {
+            displayLegend = $"{Model.Applications?.Count()} result for '{Model.SearchBy}' with a status of '{Model.SelectedFilterValue}'";
+        }
+        else
+        {
+            displayLegend = $"{Model.Applications?.Count()} results for '{Model.SearchBy}' with a status of '{Model.SelectedFilterValue}'";
+        }
+    }
+
+    @*
+    PENDING following feedback from BA's'
+
+    IF nothing entered into search AND no filter applied
+    Refresh page and do not show anything
+
+    IF more then [x] characters entered into search
+    Refresh page and do not show anything
+    *@
+    if (displayLegend.Length > 0)
+    {
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <p class="govuk-body bus-breakword">@displayLegend</p>
+            </div>
+        </div>
+    }
+    
+    @* Data table *@
+    if (Model.Applications != null && Model.Applications.Any())
+    {
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <table class="govuk-table responsive" aria-label="installation address table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th id="application-id-header" scope="col" class="govuk-table__header app-custom-class">Application ID</th>
+                            <th id="installtion-address-header" scope="col" class="govuk-table__header app-custom-class bus-dashboard-table--address">Installation address</th>
+                            <th id="property-owner-header" scope="col" class="govuk-table__header app-custom-class bus-dashboard-table--name">Property owner</th>
+                            <th id="status-header" scope="col" class="govuk-table__header app-custom-class">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="application-data-table" class="govuk-table__body">
+                        @foreach (var lineDetails in Model.Applications)
+                        {
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">
+                                    <p class="govuk-body govuk-!-margin-bottom-2">
+                                        <a id="application-id-tag-@lineDetails.ReferenceNumber" asp-page=@Routes.Pages.Path.CD149 asp-route-referenceNumber=@lineDetails.ReferenceNumber class="govuk-link govuk-link--no-visited-state">
+                                            @lineDetails.ReferenceNumber
+                                        </a>
+                                        <br />
+                                    </p>
+                                </th>
+                                <td class="govuk-table__cell bus-dashboard-table--address">
+                                    <p id="address-content-tag-@lineDetails.ReferenceNumber" class="govuk-body govuk-!-margin-bottom-2 bus-breakword">
+                                        @lineDetails.InstallationAddressLine1<br>
+                                        @if (!string.IsNullOrEmpty(@lineDetails.InstallationAddressLine2))
+                                        {
+                                            @lineDetails.InstallationAddressLine2
+                                            <br>
+                                        }
+                                        @if (!string.IsNullOrEmpty(@lineDetails.InstallationAddressLine3))
+                                        {
+                                            @lineDetails.InstallationAddressLine3
+                                            <br>
+                                        }
+                                        @if (!string.IsNullOrEmpty(@lineDetails.InstallationAddressCounty))
+                                        {
+                                            @lineDetails.InstallationAddressCounty
+                                            <br>
+                                        }
+                                        @lineDetails.InstallationAddressPostcode
+                                    </p>
+                                </td>
+                                <td class="govuk-table__cell bus-dashboard-table--name">
+                                    <p id="name-content-tag-@lineDetails.ReferenceNumber" class="govuk-body govuk-!-margin-bottom-2 bus-breakword">
+                                        @lineDetails.PropertyOwnerFullName
+                                    </p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <partial name="_StatusColumn" model="lineDetails" />
+                                </td>
+                            </tr>
+                        }
+                    
+                </table>
+            </div>
+        </div>
+    }
+}

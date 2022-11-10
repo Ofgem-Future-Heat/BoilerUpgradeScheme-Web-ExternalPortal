@@ -1,0 +1,159 @@
+﻿@using Ofgem.API.BUS.Applications.Domain.Constants;
+@using API.BUS.Applications.Domain
+@model InstallerApplicationDetailModel
+
+@if (Model.Application != null)
+{
+    if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.SUB])
+    {
+        <p class="govuk-body">Ofgem are currently reviewing this voucher application.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.INRW])
+    {
+        if (Model.Application.ConsentState.ToLower() == "issued")
+        {
+            <p class="govuk-body">The property owner has yet not given their consent for this voucher application. You may want to remind them to do so.</p>
+            <p class="govuk-body">Ofgem cannot complete its review of this application until consent is received.</p>
+        }
+        else if (Model.Application.ConsentState.ToLower() == "not issued")
+        {
+            <p class="govuk-body">Ofgem are currently reviewing this voucher application.</p>
+        }
+        else if (Model.Application.ConsentState.ToLower() == "received")
+        {
+            <p class="govuk-body">Ofgem are currently reviewing this voucher application.</p>
+        }
+        else if (Model.Application.ConsentState.ToLower() == "expired")
+        {
+            <p class="govuk-body">Ofgem have rejected this voucher application because the property owner did not give their consent in time.</p>
+            @if (!string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) && !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+            {
+                <p class="govuk-body">They've sent an email to @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) explaining why and what you can do if you disagree with the decision.</p>
+            }
+        }
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.WITH])
+    {
+        if (Model.Application.ConsentState.ToLower() == "issued")
+        {
+            <p class="govuk-body">The property owner has yet not given their consent for this voucher application. You may want to remind them to do so.</p>
+            @if (!string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) && !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+            {
+                <p class="govuk-body">Separately, Ofgem have also emailed @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) for further information about this voucher application.</p>
+            }
+        }
+        else if (Model.Application.ConsentState.ToLower() == "not issued" &&
+                 !string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) &&
+                 !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+        {
+            <p class="govuk-body">Ofgem have emailed @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) for further information about this voucher application</p>
+        }
+        else if (Model.Application.ConsentState.ToLower() == "received" &&
+                 !string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) &&
+                 !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+        {
+            <p class="govuk-body">Ofgem have emailed @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) for further information about this voucher application</p>
+        }
+        else if (Model.Application.ConsentState.ToLower() == "expired")
+        {
+            <p class="govuk-body">Ofgem have rejected this voucher application because the property owner did not give their consent in time.</p>
+            @if (!string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) && !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+            {
+                <p class="govuk-body">They've sent an email to @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) explaining why and what you can do if you disagree with the decision.</p>
+            }
+        }
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.QC] ||
+             Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.DA] ||
+             Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.VPEND])
+    {
+        <p class="govuk-body">Ofgem are currently reviewing this voucher application.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.VQUED])
+    {
+        <p class="govuk-body">This voucher application is approved, but there's no more budget for this funding period. The voucher is in a queue and will be issued when more scheme funding is released.</p>
+        <p class="govuk-body">Visit the Ofgem website for the <a href="https://www.ofgem.gov.uk/publications/bus-monthly-scheme-update" target="_blank" rel="noreferrer noopener">latest information on the scheme's budget</a> (opens in a tab).</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.VEXPD])
+    {
+        <p class="govuk-body">This voucher has expired.</p>
+        <p class="govuk-body">You'll need to apply for a new voucher if you still want to claim the grant for this project.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.CNTRW])
+    {
+        if (Model.Application.ConsentState.ToLower() == "issued")
+        {
+            <p class="govuk-body">The property owner has not yet given their consent for this voucher application. You may want to remind them to do so.</p>
+            <p class="govuk-body">Ofgem cannot complete its review of this application until consent is received.</p>
+        }
+        else if (Model.Application.ConsentState.ToLower() == "not issued" || Model.Application.ConsentState.ToLower() == "received")
+        {
+            <p class="govuk-body">Ofgem are currently reviewing this voucher application.</p>
+        }
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.CNTPS])
+    {
+        <p>Ofgem have rejected this voucher because the property owner gave their consent to another installer</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.CNTRD])
+    {
+        <p class="govuk-body">Ofgem are currently reviewing this voucher application.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.RPEND])
+    {
+        <p class="govuk-body">Ofgem have rejected this voucher application.</p>
+        @if (!string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) && !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+        {
+            <p class="govuk-body">They've sent an email to @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) explaining why and what you can do if you disagree with the decision.</p>
+        }
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.REJECTED])
+    {
+        <p class="govuk-body">Ofgem have rejected this voucher application.</p>
+        @if (!string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) && !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+        {
+            <p class="govuk-body">They've sent an email to @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) explaining why.</p>
+        }
+    }
+    else if (Model.CurrentStatusId == StatusMappings.ApplicationSubStatus[ApplicationSubStatus.ApplicationSubStatusCode.WITHDRAWN])
+    {
+        <p class="govuk-body">Ofgem have cancelled this voucher application, because either:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>someone from your business cancelled it</li>
+            <li>the property owner withdrew their consent</li>
+        </ul>
+        @if (!string.IsNullOrEmpty(Model.ApplicationSubmitter?.FullName) && !string.IsNullOrEmpty(Model.ApplicationSubmitter?.EmailAddress))
+        {
+            <p class="govuk-body">They've sent an email to @Model.ApplicationSubmitter.FullName (@Model.ApplicationSubmitter.EmailAddress) explaining what has happened.</p>
+        }
+    }
+    else if (Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.SUB] ||
+             Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.REDREV] ||
+             Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.QC] ||
+             Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.DA] ||
+             Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.REDAPP] ||
+             Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.SENTPAY] ||
+             Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.PAYSUS])
+    {
+        <p class="govuk-body">Ofgem are currently reviewing this voucher redemption application.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.WITHIN])
+    {
+        <p class="govuk-body">Ofgem have emailed the person who submitted the voucher redemption application for further information about it.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.REJECTED])
+    {
+        <p class="govuk-body">Ofgem have rejected this voucher redemption application.</p>
+        <p class="govuk-body">They've sent an email to the person who submitted it explaining why.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.REJPEND])
+    {
+        <p class="govuk-body">Ofgem have rejected this voucher redemption application.</p>
+        <p class="govuk-body">They've sent an email to the person who submitted it explaining why and what your business can do if you disagree with the decision.</p>
+    }
+    else if (Model.CurrentStatusId == StatusMappings.VoucherSubStatus[VoucherSubStatus.VoucherSubStatusCode.REVOKED])
+    {
+        <p class="govuk-body">Ofgem have revoked this BUS voucher.</p>
+        <p class="govuk-body">They've sent a revocation notice via email to your business explaining why. </p>
+    }
+}

@@ -1,0 +1,23 @@
+﻿@page
+@model OfflineModel
+@{
+    ViewData["PageId"] = "CD184";
+}
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+            You cannot continue with this application online
+        </h1>
+        <p class="govuk-body">Where a property's EPC has recommendations for loft or cavity wall insulation and it is exempt from needing to address them, we need evidence to support the application. However, the online service cannot yet handle file uploads.</p>
+        <h2 class="govuk-heading-m">Submit your application via PDF or DOCX form</h2>
+        <p class="govuk-body">You'll need to start a new application, using one of our PDF or DOCX forms.</p>
+        <p class="govuk-body">The link below will explain how to do this. By clicking it, you'll lose your progress with this digital application.</p>
+        <form method="POST" novalidate>
+            <p class="govuk-body">
+                <a class="govuk-link govuk-link--no-visited-state" href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-voucher-application-form">
+                    PDF and DOCX voucher application forms
+                </a>
+            </p>
+        </form>
+    </div>
+</div>

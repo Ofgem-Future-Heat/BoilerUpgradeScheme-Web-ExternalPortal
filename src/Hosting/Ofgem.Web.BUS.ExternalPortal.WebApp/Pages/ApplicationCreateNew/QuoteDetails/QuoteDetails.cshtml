@@ -1,0 +1,176 @@
+﻿@page
+@model QuoteDetailsModel
+@{
+    ViewData["PageId"] = "CD22";
+    ViewData["Title"] = "Quote details";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">Quote details</h1>
+
+        <div class="govuk-form-group">
+            <p class="govuk-body">We require this data for monitoring purposes.</p>
+            <p class="govuk-body">It can be provisional at this stage, and will not affect the eligibility of your application.</p>
+        </div>
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuoteDay") || ModelState.HasError("QuoteMonth") || ModelState.HasError("QuoteYear") ? "govuk-form-group--error" : null) govuk-!-margin-bottom-8">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="newQuoteDate-hint @(ModelState.HasError("QuoteDay") || ModelState.HasError("QuoteMonth") || ModelState.HasError("QuoteYear") ? "QuoteDay_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Date of quote&nbsp;
+                    </legend>
+                    <div id="newQuoteDate-hint" class="govuk-hint">
+                        For example, 25 6 2022
+                    </div>
+
+                    <p id="QuoteDay_Error" class="govuk-error-message" gds-validation-for="QuoteDay"></p>
+                    <div class="govuk-date-input" id="newQuoteDate">
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" asp-for="QuoteDay">
+                                    Day
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2 @(ModelState.HasError("QuoteDay") || ModelState.HasError("QuoteMonth") || ModelState.HasError("QuoteYear") ? "govuk-input--error" : null)" id="QuoteDay"
+                                       asp-for="@Model.QuoteDay" type="text" inputmode="numeric" value="@Model.QuoteDay">
+                            </div>
+                        </div>
+
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" asp-for="QuoteMonth">
+                                    Month
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2 @(ModelState.HasError("QuoteDay") || ModelState.HasError("QuoteMonth") || ModelState.HasError("QuoteYear") ? "govuk-input--error" : null)" id="QuoteMonth"
+                                       asp-for="@Model.QuoteMonth" type="text" inputmode="numeric" value="@Model.QuoteMonth">
+                            </div>
+                        </div>
+
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" asp-for="QuoteYear">
+                                    Year
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-4 @(ModelState.HasError("QuoteDay") || ModelState.HasError("QuoteMonth") || ModelState.HasError("QuoteYear") ? "govuk-input--error" : null)" id="QuoteYear"
+                                       asp-for="@Model.QuoteYear" type="text" inputmode="numeric" value="@Model.QuoteYear">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group @(ModelState.HasError("QuoteReference") ? "govuk-form-group--error": "") govuk-!-margin-bottom-8">
+                <label class="govuk-label govuk-label--m" asp-for="QuoteReference">
+                    Quote reference
+                </label>
+                <div id="newQuoteRef-hint-1" class="govuk-hint">
+                    This is the reference your business has given the quote.
+                </div>
+
+                <p id="QuoteReference_Error" class="govuk-error-message" gds-validation-for="QuoteReference"></p>
+
+                <div class="govuk-input__wrapper">
+                    <input class="govuk-input govuk-input--width-20 @(ModelState.HasError("QuoteReference") ? "govuk-input--error" : "")" id="QuoteReference"
+                           asp-for="@Model.QuoteReference" type="text" spellcheck="false" value="@Model.QuoteReference" aria-describedby="@(ModelState.HasError("QuoteReference") ? "QuoteReference_Error" : null)">
+                </div>
+            </div>
+
+            <div class="govuk-form-group @(ModelState.HasError("QuoteAmountTotal") ? "govuk-form-group--error": "") govuk-!-margin-bottom-8">
+                <label class="govuk-label govuk-label--m" asp-for="QuoteAmountTotal">
+                    Total quote amount
+                </label>
+                <div id="newQuoteTotal-hint-1" class="govuk-hint">
+                    The quote should:
+                </div>
+
+                <div id="newQuoteTotal-hint-2" class="govuk-hint">
+                    <ul class="govuk-list govuk-list--bullet bus-text--grey">
+                        <li>include parts, labour and any other costs associated with the project</li>
+                        <li>be inclusive of VAT</li>
+                        <li>not have the grant amount deducted from it</li>
+                        <li>match the total quote you issued to the property owner</li>
+                    </ul>
+                </div>
+
+                @if (Model.TechTypeId == TechTypes.SharedGroundLoopSourceHeatPump)
+                {
+                    <div id="newQuiteTotal-hint-3" class="govuk-hint">
+                        If your project quote covers multiple heat pumps on the shared ground or water loop, it's okay to use the overall figure.
+                    </div>
+                }
+
+                <p id="QuoteAmountTotal_Error" class="govuk-error-message" gds-validation-for="QuoteAmountTotal"></p>
+
+                <div class="govuk-input__wrapper">
+                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                    <input class="govuk-input govuk-input--width-10 @(ModelState.HasError("QuoteAmountTotal") ? "govuk-input--error" : "")" id="QuoteAmountTotal"
+                           asp-for="@Model.QuoteAmountTotal" type="text" spellcheck="false" value="@Model.QuoteAmountTotal" aria-describedby="@(ModelState.HasError("QuoteAmountTotal") ? "QuoteAmountTotal_Error" : null)">
+                </div>
+            </div>
+
+            @if (Model.TechTypeId == TechTypes.BiomassBoiler)
+            {
+                <div class="govuk-form-group @(ModelState.HasError("QuoteBoilerAmount") ? "govuk-form-group--error": "") govuk-!-margin-bottom-8">
+                    <label class="govuk-label govuk-label--m" asp-for="QuoteBoilerAmount">
+                        Cost of just the biomass boiler to the property owner
+                    </label>
+                    <div id="newQuoteBoiler-hint-1" class="govuk-hint">
+                        This should not include:
+                    </div>
+                    <div id="newQuoteBoiler-hint-2" class="govuk-hint">
+                        <ul class="govuk-list govuk-list--bullet bus-text--grey">
+                            <li>labour costs</li>
+                            <li>the cost of any additional components, such as buffers, cylinders or radiators</li>
+                            <li>the grant amount</li>
+                            <li>VAT (which is charged at 0% on biomass boilers)</li>
+                        </ul>
+                    </div>
+
+                    <p id="QuoteBoilerAmount_Error" class="govuk-error-message" gds-validation-for="QuoteBoilerAmount"></p>
+
+                    <div class="govuk-input__wrapper">
+                        <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                        <input class="govuk-input govuk-input--width-10 @(ModelState.HasError("QuoteBoilerAmount") ? "govuk-input--error" : "")" id="QuoteBoilerAmount"
+                           asp-for="@Model.QuoteBoilerAmount" type="text" spellcheck="false" value="@Model.QuoteBoilerAmount" aria-describedby="@(ModelState.HasError("QuoteBoilerAmount") ? "QuoteBoilerAmount_Error" : null)">
+                    </div>
+                </div>
+            }
+
+            @if (Model.TechTypeId == TechTypes.GroundSourceHeatPump || Model.TechTypeId == TechTypes.SharedGroundLoopSourceHeatPump || Model.TechTypeId == TechTypes.AirSourceHeatPump)
+            {
+                <div class="govuk-form-group @(ModelState.HasError("QuoteBoilerAmount") ? "govuk-form-group--error": "") govuk-!-margin-bottom-8">
+                    <label class="govuk-label govuk-label--m" asp-for="QuoteBoilerAmount">
+                        Cost of just the heat pump to the property owner
+                    </label>
+                    <div id="newQuoteBoiler-hint-1" class="govuk-hint">
+                        This should not include:
+                    </div>
+                    <div id="newQuoteBoiler-hint-2" class="govuk-hint">
+                        <ul class="govuk-list govuk-list--bullet bus-text--grey">
+                            <li>labour costs</li>
+                            <li>the cost of any additional components, such as buffers, cylinders or radiators</li>
+                            <li>the grant amount</li>
+                            <li>VAT (which is charged at 0% on heat pumps)</li>
+                        </ul>
+                    </div>
+
+                    <p id="QuoteBoilerAmount_Error" class="govuk-error-message" gds-validation-for="QuoteBoilerAmount"></p>
+
+                    <div class="govuk-input__wrapper">
+                        <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                        <input class="govuk-input govuk-input--width-10 @(ModelState.HasError("QuoteBoilerAmount") ? "govuk-input--error" : "")" id="QuoteBoilerAmount"
+                           asp-for="@Model.QuoteBoilerAmount" type="text" spellcheck="false" value="@Model.QuoteBoilerAmount" aria-describedby="@(ModelState.HasError("QuoteBoilerAmount") ? "QuoteBoilerAmount_Error" : null)">
+                    </div>
+                </div>
+            }
+
+            <button class="govuk-button" data-module="govuk-button" id="continue-button">
+                Continue
+            </button>
+
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

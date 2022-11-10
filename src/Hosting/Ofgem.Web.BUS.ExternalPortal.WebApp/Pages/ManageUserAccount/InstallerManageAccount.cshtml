@@ -1,0 +1,77 @@
+﻿@page
+
+@inject IConfiguration Configuration
+
+@model InstallerManageAccountModel
+@{
+    ViewData["PageId"] = "CD150";
+    ViewData["Title"] = "Manage account";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Manage account</h1>
+        <p class="govuk-body govuk-body-s govuk-!-margin-bottom-0">Contents</p>
+        <ol class="govuk-list contents-list">
+            <li><a href="#updateown" class="govuk-link govuk-link--no-visited-state">Update your own details</a></li>
+            <li><a href="#password" class="govuk-link govuk-link--no-visited-state">Change your password</a></li>
+            <li><a href="#updateusers" class="govuk-link govuk-link--no-visited-state">Update information about other users</a></li>
+            <li><a href="#updatebusiness" class="govuk-link govuk-link--no-visited-state">Update business details</a></li>
+            <li><a href="#updateauth" class="govuk-link govuk-link--no-visited-state">Update authorised representative information</a></li>
+        </ol>
+
+
+
+        <h2 class="govuk-heading-l" id="updateown">Update your own details</h2>
+        <p class="govuk-body">We hold the following information about you:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>your full name</li>
+            <li>your email</li>
+            <li>your telephone number</li>
+        </ul>
+        <p class="govuk-body">If any of these change you must notify either:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>the authorised representative for your business’s installer account</li>
+            <li>someone who has permission to manage users on your business’s installer account </li>
+        </ul>
+        <p class="govuk-body">They’ll need to download and add your new details to the following form.</p>
+        <p class="govuk-body"><a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-installer-account-amendment-forms" class="govuk-link ">‘Provide new additional user details’ form</a> on the Ofgem website.</p>
+
+
+        @{
+            var signoutUrl = Configuration.GetValue<string>("AzureAdB2C:SignOutUrl");
+        }
+        <h2 class="govuk-heading-l" id="password">Change your password</h2>
+        <p class="govuk-body"><a href=@signoutUrl class="govuk-link ">Sign out</a> and click ‘Forgot password’ before you sign in again.</p>
+
+
+
+        <h2 class="govuk-heading-l" id="updateusers">Update information about other users</h2>
+        <p class="govuk-body">If you have permission to manage other users on your business’s installer account, download and complete the following form to add, edit or remove any users.</p>
+        <p class="govuk-body"><a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-installer-account-amendment-forms" class="govuk-link ">‘Provide new additional user details’ form</a> on the Ofgem website.</p>
+        <p class="govuk-body"><strong>Note:</strong> you will not be able to use this form to add, edit or remove the authorised representative for this account.</p>
+
+
+
+        <h2 class="govuk-heading-l" id="updatebusiness">Update business details</h2>
+        <p class="govuk-body">If you are the authorised representative for your business’s BUS account, you can change the following information we hold about your business:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>business name</li>
+            <li>trading name</li>
+            <li>registered business address</li>
+            <li>trading address</li>
+            <li>business bank account details</li>
+        </ul>
+        <p class="govuk-body"><a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-installer-account-amendment-forms" class="govuk-link ">‘Update business details’ form</a> on the Ofgem website.</p>
+
+
+
+        <h2 class="govuk-heading-l" id="updateauth">Update authorised representative information</h2>
+        <p class="govuk-body">If you are the authorised representative for your business’s BUS account, you can:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>change the information we hold about you</li>
+            <li>tell us you want a new authorised representative for this account</li>
+        </ul>
+        <p class="govuk-body"><a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-installer-account-amendment-forms" class="govuk-link ">‘Update authorised representative details’ form</a> on the Ofgem website.</p>
+    
+    </div>
+</div>

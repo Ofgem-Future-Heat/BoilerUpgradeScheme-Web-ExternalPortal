@@ -1,0 +1,33 @@
+﻿@page
+@model Ofgem.Web.BUS.ExternalPortal.WebApp.Pages.B2CRedirect.InviteErrorModel
+@{
+    ViewData["Title"] = "This invite link is no longer working";
+}
+
+
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+
+        <h1 id="invite-error-heading" class="govuk-heading-xl" >
+            This invite link is no longer working
+        </h1>
+
+        <p class="govuk-body">It has either:</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>expired</li>
+            <li>been cancelled</li>
+            <li>already been used</li>
+        </ul>
+
+        <p class="govuk-body">If you need a new link or want to speak to someone about this, contact Ofgem:</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>Email: <a id="BUS_email" href="mailto:BUS.installer@ofgem.gov.uk" class="govuk-link govuk-link--no-visited-state">BUS.installer@ofgem.gov.uk</a></li>
+            <li id="BUS_phone">Tel: 0330 053 2006</li>
+        </ul>
+
+    </div>
+
+</div>

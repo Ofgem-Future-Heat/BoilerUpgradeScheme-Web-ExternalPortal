@@ -1,0 +1,126 @@
+﻿@page
+@model TechSpecModel
+@{
+    ViewData["PageId"] = "CD12";
+    ViewData["Title"] = "Confirm your project will be eligible";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            Confirm your project will be eligible
+        </h1>
+        @if (Model.TechTypeId == TechTypes.SharedGroundLoopSourceHeatPump)
+        {
+            <!-- shared ground loop ground source heat pump -->
+            <div class="govuk-form-group">
+                <p class="govuk-body">You must confirm that:</p>
+                <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                    <li>the heat pump will be commissioned on or after 1 April 2022</li>
+                    <li>the heat pump will meet the standards approved and published by the Secretary of State (to help you check, you can use the <a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-product-eligibility" rel="noreferrer noopener" target="_blank" class="govuk-link">Boiler Upgrade Scheme product eligibility list (opens in a new tab)</a>, which is a subset of the MCS product eligibility list)</li>
+                    <li>the new heating system will be capable of meeting the full space and water heating needs of the property, and it is designed to do so</li>
+                    <li>the new heating system will only provide heating to the property being applied for (and any 'related properties' that are included on the EPC)</li>
+                    <li>the heat pump will distribute heat using a liquid, for example through radiators or underfloor heating</li>
+                    <li>the combined capacity of all heat pumps on the shared ground or water loop will not exceed 45kWth</li>
+                    <li>the new heating system will have a seasonal coefficient of performance (SCOP) of at least 2.8</li>
+                    <li>the heat pump unit and compressor will not have been used prior to commissioning (except in limited circumstances, eg to dry out plasterwork during construction or renovation)</li>
+                    <li>the new heating system will not be a hybrid system that combines a heat pump with fossil fuel heating</li>
+                    <li>(retrofits only) all heat-generating components of the original heating system will be replaced (where applicable, you may retain circulation pumps, solar thermal collectors, wood-burning stoves, and supplementary electric heaters, including immersion heaters)</li>
+                    <li>(retrofits only) the new heating system will replace either a fossil fuel heating system or an electric heating system</li>
+                    <li>(retrofits only) the new heating system will not replace a system that already contains a heat pump or biomass boiler</li>
+                </ul>
+            </div>
+        }
+        else if (Model.TechTypeId == TechTypes.BiomassBoiler)
+        {
+            <div class="govuk-form-group">
+                <p class="govuk-body">You must confirm that:</p>
+                <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                    <li>the biomass boiler will be commissioned on or after 1 April 2022</li>
+                    <li>the new heating system will be capable of meeting the full space and water heating needs of the property, and it is designed to do so</li>
+                    <li>the new heating system will only provide heating to the property being applied for (and any ‘related properties‘ that are included on the EPC)</li>
+                    <li>the biomass boiler will distribute heat using a liquid, for example through radiators or underfloor heating</li>
+                    <li>the new heating system will have a maximum capacity of 45 kWth</li>
+                    <li>the new biomass boiler will not have been used prior to commissioning</li>
+                    <li>the new heating system will not be a hybrid system that combines a biomass boiler with fossil fuel heating</li>
+                    <li>all heat-generating components of the original heating system will be replaced (where applicable, you may retain circulation pumps, solar thermal collectors, wood-burning stoves, and supplementary electric heaters, including immersion heaters)</li>
+                    <li>the new heating system will replace either a fossil fuel heating system or an electric heating system</li>
+                    <li>(retrofits only) the new heating system will not replace a system that already contains a heat pump or biomass boiler</li>
+                </ul>
+            </div>
+        }
+        else if (Model.TechTypeId == TechTypes.AirSourceHeatPump)
+        {
+            <div class="govuk-form-group">
+                <p class="govuk-body">You must confirm that:</p>
+                <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                    <li>the heat pump will be commissioned on or after 1 April 2022</li>
+                    <li>the heat pump will meet the standards approved and published by the Secretary of State (to help you check, you can use the <a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-product-eligibility" rel="noreferrer noopener" target="_blank" class="govuk-link">Boiler Upgrade Scheme product eligibility list (opens in a new tab)</a>, which is a subset of the MCS product eligibility list)</li>
+                    <li>the new heating system will be capable of meeting the full space and water heating needs of the property, and it is designed to do so</li>
+                    <li>the new heating system will only provide heating to the property being applied for (and any 'related properties' that are included on the EPC)</li>
+                    <li>the heat pump will distribute heat using a liquid, for example through radiators or underfloor heating</li>
+                    <li>the new heating system will have a maximum capacity of 45 kWth</li>
+                    <li>the new heating system will have a seasonal coefficient of performance (SCOP) of at least 2.8</li>
+                    <li>the heat pump unit or compressor will not have been used prior to commissioning (except in limited circumstances, eg to dry out plasterwork during construction or renovation)</li>
+                    <li>the new heating system will not be a hybrid system that combines a heat pump with fossil fuel heating</li>
+                    <li>(retrofits only) all heat-generating components of the original heating system will be replaced (where applicable, you may retain circulation pumps, solar thermal collectors, wood-burning stoves, and supplementary electric heaters, including immersion heaters)</li>
+                    <li>(retrofits only) the new heating system will replace either a fossil fuel heating system or an electric heating system</li>
+                    <li>(retrofits only) the new heating system will not replace a system that already contains a heat pump or biomass boiler</li>
+                </ul>
+            </div>
+        }
+        else if (Model.TechTypeId == TechTypes.GroundSourceHeatPump)
+        {
+            <div class="govuk-form-group">
+                <p class="govuk-body">You must confirm that:</p>
+                <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                    <li>the heat pump will be commissioned on or after 1 April 2022</li>
+                    <li>the heat pump will meet the standards approved and published by the Secretary of State (to help you check, you can use the <a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-product-eligibility" rel="noreferrer noopener" target="_blank" class="govuk-link">Boiler Upgrade Scheme product eligibility list (opens in a new tab)</a>, which is a subset of the MCS product eligibility list)</li>
+                    <li>the new heating system will be capable of meeting the full space and water heating needs of the property, and it is designed to do so</li>
+                    <li>the new heating system will only provide heating to the property being applied for (and any 'related properties' that are included on the EPC)</li>
+                    <li>the heat pump will distribute heat using a liquid, for example through radiators or underfloor heating</li>
+                    <li>the new heating system will have a maximum capacity of 45 kWth</li>
+                    <li>the new heating system will have a seasonal coefficient of performance (SCOP) of at least 2.8</li>
+                    <li>the heat pump unit or compressor and ground or water loop will not have been used prior to commissioning (except in limited circumstances, eg to dry out plasterwork during construction or renovation)</li>
+                    <li>the new heating system will not be a hybrid system that combines a heat pump with fossil fuel heating</li>
+                    <li>(retrofits only) all heat-generating components of the original heating system will be replaced (where applicable, you may retain circulation pumps, solar thermal collectors, wood-burning stoves, and supplementary electric heaters, including immersion heaters)</li>
+                    <li>(retrofits only) the new heating system will replace either a fossil fuel heating system or an electric heating system</li>
+                    <li>(retrofits only) the new heating system will not replace a system that already contains a heat pump or biomass boiler</li>
+                </ul>
+            </div>
+        }
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "QuestionResonse_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        Do you confirm your project will meet these eligibility criteria?
+                    </legend>
+
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" type="radio" asp-for="QuestionResponse" value="true">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" type="radio" asp-for="QuestionResponse" value="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

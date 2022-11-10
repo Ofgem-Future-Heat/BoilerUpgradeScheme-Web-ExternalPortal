@@ -1,0 +1,105 @@
+﻿@page
+@model InstallerApplicationNewStartModel
+@{
+    ViewData["PageId"] = "CD151";
+    ViewData["Title"] = "Create new application";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Create new application</h1>
+        <h2 class="govuk-heading-l">Before you start</h2>
+        <h3 class="govuk-heading-m">Background research</h3>
+        <p class="govuk-body">Make sure you've:</p>
+        <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+            <li>read and understood the <a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-guidance-installers" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">Boiler Upgrade Scheme (BUS) installer guidance (opens in a new tab)</a></li>
+            <li>checked that there's enough <a href="https://www.ofgem.gov.uk/publications/bus-monthly-scheme-update" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">remaining budget (opens in a new tab)</a> for you to get a voucher in this funding period</li>
+        </ul>
+
+        <h3 class="govuk-heading-m">Dealing with the property owner</h3>
+        <p class="govuk-body">Make sure you've:</p>
+
+        <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+            <li>determined that the project you're making a BUS application for is eligible for a grant</li>
+            <li>agreed a quote for the project with the property owner, even if it's provisional at this stage</li>
+            <li>got consent from the property owner to submit a BUS voucher application on their behalf</li>
+            <li>explained to the property owner that Ofgem will ask them to confirm their consent after you’ve made the application, and that they’ll have 14 calendar days to do this</li>
+        </ul>
+
+        <h3 class="govuk-heading-m">Check if you need to provide evidence to support your application</h3>
+        <p class="govuk-body">You'll need to provide evidence to support your application if:</p>
+
+        <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+            <li>the property is an ‘eligible self build’ that has not had a previous heating system</li>
+            <li>the property has an EPC with recommendations for loft or cavity wall insulation, and it's exempt from the scheme requirement to address them</li>
+        </ul>
+
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary" id="new-build-detail">
+                <span class="govuk-details__summary-text">
+                    What is an 'eligible self build'?
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p class="govuk-body">It's a property that:</p>
+                <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                    <li>will only start being used or occupied after the new heat pump is commissioned</li>
+                    <li>has been built mainly using the labour or resources of the first owner</li>
+                    <li>has never have been owned by a business or organisation</li>
+                </ul>
+            </div>
+        </details>
+
+
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary" id="property-exempt-detail">
+                <span class="govuk-details__summary-text">
+                    When is a property exempt from the requirement to address EPC recommendations for loft or cavity wall insulation?
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p class="govuk-body">A property is exempt from this requirement if:</p>
+                <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+                    <li>the property is affected by atypical local environment conditions, such as regular exposure to driving rain</li>
+                    <li>installing loft or cavity wall is not feasible due to the structure of the property, for example the house has a steel or timber frame</li>
+                    <li>installing loft or cavity wall insulation would harm protected wildlife</li>
+                    <li>the property is in a conservation area</li>
+                    <li>the property is a listed building</li>
+                    <li>installing loft or cavity wall insulation would be unlawful</li>
+                </ul>
+            </div>
+        </details>
+        <p class="govuk-body">You'll need to email any evidence to Ofgem after you've completed your digital application.</p>
+
+        <p class="govuk-body">We will explain how to do this at the end of the application.</p>
+
+
+        <h3 class="govuk-heading-m">Information you need to provide</h3>
+        <p class="govuk-body">You'll need to provide:</p>
+        <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+            <li>the installation address</li>
+            <li>EPC information, if the project is a retrofit</li>
+            <li>provisional details of the new heating system your business plans to install</li>
+            <li>the property owner's contact details and home address</li>
+            <li>details of the quote you've agreed with the property owner (can be provisional at this stage)</li>
+        </ul>
+
+        <div class="govuk-warning-text govuk-!-margin-top-8">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                You'll lose your information and have to start the application again if you stay on a single page for more than 30 minutes, sign out or close the browser midway through the application.
+            </strong>
+        </div>
+
+        <div class="govuk-form-group">
+            <p class="govuk-body">
+                <a asp-page=@Routes.Pages.Path.CD003 role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+                    Start application
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                    </svg>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

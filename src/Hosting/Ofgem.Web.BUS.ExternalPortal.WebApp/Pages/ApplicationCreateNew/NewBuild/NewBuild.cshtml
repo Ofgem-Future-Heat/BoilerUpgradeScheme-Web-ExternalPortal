@@ -1,0 +1,57 @@
+﻿@page
+@model NewBuildModel
+@{
+    ViewData["PageId"] = "CD09";
+    ViewData["Title"] = "Is the property a 'new build'?";
+
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "QuestionResonse_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-">
+                        <h1 class="govuk-fieldset__heading">
+                            Is the property a 'new build'?
+                        </h1>
+                    </legend>
+                    <div class="govuk-form-group">
+                        @if (Model.IsBiomass)
+                        {
+                            <p class="govuk-body">This means the property will only start being used or occupied after the new biomass boiler is commissioned.</p>
+                        }
+                        else
+                        {
+                            <p class="govuk-body">This means the property will only start being used or occupied after the new heat pump is commissioned.</p>
+                        }
+                    </div>
+
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" asp-for="QuestionResponse" type="radio" value="true">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" asp-for="QuestionResponse" type="radio" value="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+
+        </form>
+    </div>
+</div>

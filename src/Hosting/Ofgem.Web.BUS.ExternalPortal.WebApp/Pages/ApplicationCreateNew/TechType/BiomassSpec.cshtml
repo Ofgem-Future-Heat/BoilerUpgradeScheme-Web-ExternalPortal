@@ -1,0 +1,71 @@
+﻿@page
+@model BiomassSpecModel
+@{
+    ViewData["PageId"] = "CD157";
+    ViewData["Title"] = "Further requirements for biomass boilers";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <partial name="_ErrorSummary" model="ModelState" />
+
+        <h1 class="govuk-heading-xl">
+            Further requirements for biomass boilers
+        </h1>
+        <div class="govuk-form-group">
+            <p class="govuk-body">You must confirm that:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>
+                    the property is in an area classified as rural
+                </li>
+                <li>
+                    the biomass boiler must be eligible for the scheme
+                </li>
+            </ul>
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                        How to check
+                    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p class="govuk-body">To check whether a property is classified as urban or rural, you can use this <a href="https://ons.maps.arcgis.com/apps/webappviewer/index.html?id=20467878cc20410d961a3f71db356b6d" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">rural-urban locator tool (opens in a new tab)</a>.</p>
+                    <p class="govuk-body">The biomass boiler must meet the standards approved and published by the Secretary of State. To help you check, you can use the <a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-product-eligibility" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">Boiler Upgrade Scheme product eligibility list (opens in a new tab)</a>, which is a subset of the MCS product eligibility list.</p>
+                    <p class="govuk-body">If a particular biomass boiler is not on this list, it may still be eligible. Providing it meets all the relevant standards, you’ll need to submit an emissions certificate when you redeem your voucher at the end of the project.</p>
+                    <p class="govuk-body">The certificate must show that emissions of particulate matter did not exceed 30g/GJ net heat input, and emissions of NOx did not exceed 150g/GJ net heat input at the time of testing.</p>
+                </div>
+            </details>
+        </div>
+        <form method="POST" novalidate>
+            <div class="govuk-form-group @(ModelState.HasError("QuestionResponse") ? "govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset" aria-describedby="@(ModelState.HasError("QuestionResponse") ? "QuestionResonse_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        Does your project meet these further requirements?
+                    </legend>
+                    
+                    <p id="QuestionResonse_Error" class="govuk-error-message" gds-validation-for="QuestionResponse"></p>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse" asp-for="QuestionResponse" type="radio" value="true">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="QuestionResponse-2" asp-for="QuestionResponse" type="radio" value="false">
+                            <label class="govuk-label govuk-radios__label" for="QuestionResponse-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

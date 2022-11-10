@@ -1,0 +1,24 @@
+﻿@page
+@model InternalErrorModel
+@{
+    ViewData["Title"] = "There has been an error";
+}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+                <h1 id="title_id" class="govuk-heading-xl">Sorry, there is a problem</h1>
+                <p class="govuk-body">This could be:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>a technical issue with the service</li>
+                    <li>an issue with your account</li>
+                </ul>
+                <p class="govuk-body">If you were in the middle of an application, you'll have to start a new one.</p>
+                <p class="govuk-body">If you continue to have issues, contact Ofgem at:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>Email: <a href="#" class="govuk-link govuk-link--no-visited-state">BUS.enquiry@ofgem.gov.uk</a></li>
+                    <li>Tel: 0330 053 2006</li>
+                </ul>
+            <a id="error_finish_button" href="/?search=&amp;status=all" class="govuk-button" data-module="govuk-button">Back to account home</a>
+        </div>
+    </div>

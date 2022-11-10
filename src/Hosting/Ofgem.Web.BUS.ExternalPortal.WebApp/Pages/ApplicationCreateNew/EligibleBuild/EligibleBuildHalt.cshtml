@@ -1,0 +1,22 @@
+﻿@page
+@model EligibleBuildHaltModel
+@{
+    // Use CD162 Dropout message
+    ViewData["PageId"] = "CD188"; 
+    ViewData["Title"] = "You will need to submit evidence to support this application";
+
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">You will need to submit evidence to support this application</h1>
+
+        <form method="POST" novalidate>
+            <p class="govuk-body">After you've completed the digital part of this application, you'll need to email evidence to prove that the property is an eligible self build.</p>
+            <p class="govuk-body">We will explain how to do this and what's required when you've finished.</p>
+            <button id="continue-button" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+            <partial name="_CancelApplication" model="null" />
+        </form>
+    </div>
+</div>

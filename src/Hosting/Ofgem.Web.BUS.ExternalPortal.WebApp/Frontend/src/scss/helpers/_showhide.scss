@@ -1,0 +1,31 @@
+.bus {
+    &--visible {
+        display: inline-block;
+    }
+
+    &--hidden {
+        display: none;
+    }
+}
+
+.bus-js {
+    &--visible {
+        display: none;
+    }
+
+    &--hidden {
+        display: inline-block;
+    }
+}
+
+.js-enabled {
+    .bus-js {
+        &--visible {
+            display: inline-block;
+        }
+
+        &--hidden {
+            display: none;
+        }
+    }
+}

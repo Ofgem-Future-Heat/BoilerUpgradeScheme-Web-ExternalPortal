@@ -1,0 +1,22 @@
+﻿@page
+@model InstallerHelpModel
+@{
+    ViewData["PageId"] = "CD153";
+    ViewData["Title"] = "Get help with the scheme";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Get help with the scheme</h1>
+        <h2 class="govuk-heading-l">Guidance for installers</h2>
+        <p class="govuk-body">You can find <a href="https://www.ofgem.gov.uk/publications/boiler-upgrade-scheme-guidance-installers" class="govuk-link">detailed scheme guidance for installers</a> on the Ofgem website.</p>
+        <h2 class="govuk-heading-l">Direct support</h2>
+        <p class="govuk-body">If you need to speak to someone about the Boiler Upgrade Scheme (BUS) or have any comments or suggestions, contact the BUS support team:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>Email: <a href="mailto:BUS.enquiry@ofgem.gov.uk" class="govuk-link govuk-link--no-visited-state">BUS.enquiry@ofgem.gov.uk</a></li>
+            <li>Tel: 0330 053 2006</li>
+        </ul>
+        <p class="govuk-body">If you want to talk about a specific installer account, you will need to quote your installer account ID (@Model.BusinessAccountNumber)</p>
+        <p class="govuk-body">If you want to talk about a specific application, you will need to have the relevant application ID.</p>
+        <p class="govuk-body">To make a complaint, see <a class="govuk-link govuk-link--no-visited-state" href="https://www.ofgem.gov.uk/about-us/contact-us/complaining-about-ofgem">complaining about Ofgem</a> on the Ofgem website.</p>
+    </div>
+</div>

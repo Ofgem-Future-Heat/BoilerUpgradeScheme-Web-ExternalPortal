@@ -1,0 +1,19 @@
+﻿@page
+@model DropOutModel
+@{
+    ViewData["PageId"] = "CD04";
+    ViewData["Title"] = "This project is not eligible for the Boiler Upgrade Scheme";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">This project is not eligible for the Boiler Upgrade Scheme</h1>
+        <p class="govuk-body">
+            @Html.Raw(@Model.ErrorMessage)
+        </p>
+        <p class="govuk-body">
+            <form method="POST" novalidate>
+                <input id="back-home-application" type="submit" class="govuk-button" value="Back to account home" asp-page-handler="homeButton">
+            </form>
+        </p>
+    </div>
+</div>

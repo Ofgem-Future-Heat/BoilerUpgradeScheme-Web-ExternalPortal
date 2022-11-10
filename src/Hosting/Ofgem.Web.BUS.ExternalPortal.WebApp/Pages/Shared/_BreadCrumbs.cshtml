@@ -1,0 +1,116 @@
+﻿@using Microsoft.Extensions.Configuration
+@using Ofgem.Web.BUS.ExternalPortal.Core.Filters
+@using Ofgem.Web.BUS.ExternalPortal.Core.Interfaces
+@using Ofgem.Web.BUS.ExternalPortal.Core.Services
+@using Ofgem.Web.BUS.ExternalPortal.Core.Utilities
+@using Ofgem.Web.BUS.ExternalPortal.Domain.Concrete
+
+@inject IConfiguration Configuration
+@inject IExternalApplicationsService ApplicationsService
+@inject SessionService Session
+@{
+    bool isViewDetails = this.ViewContext.RouteData.Values.Any(p => p.Value!.ToString()!.Contains("InstallerApplicationDetail"));
+    bool isViewDetailsSubpage = this.ViewContext.RouteData.Values.Any(p =>
+        p.Value!.ToString()!.Contains("InstallerApplicationRedeem")
+        || p.Value!.ToString()!.Contains("InstallerApplicationCancel")
+        || p.Value!.ToString()!.Contains("InstallerApplicationVoucherCancel"));
+    bool isDashboard = this.ViewContext.RouteData.Values.Any(p => p.Value!.ToString()!.Contains("InstallerApplications"));
+    bool isStartApplication = this.ViewContext.RouteData.Values.Any(p => p.Value!.ToString()!.Contains("InstallerApplicationNewStart"));
+    bool isManageAccount = this.ViewContext.RouteData.Values.Any(p => p.Value!.ToString()!.Contains("InstallerManageAccount"));
+    bool isGetHelp = this.ViewContext.RouteData.Values.Any(p => p.Value!.ToString()!.Contains("InstallerHelp"));
+    bool isCookies = this.ViewContext.RouteData.Values.Any(p => p.Value!.ToString()!.Contains("Cookies"));
+    bool noBreadcrumbsrequired = this.ViewContext.RouteData.Values.Any(p => p.Value!.ToString()!.Contains("InviteError")
+        || p.Value!.ToString()!.Contains("UserSignedOut"));
+
+    var postcode = string.Empty;
+    var propertyOwnerFullName = string.Empty;
+
+    if (isViewDetailsSubpage)
+    {
+        var applicationsData = await ApplicationsService.GetApplicationByReferenceNumberAsync(Session.ReferenceNumber).ConfigureAwait(!false);
+        postcode = RegexUtilities.NormalisePostcode(applicationsData.InstallationAddress.Postcode);
+        propertyOwnerFullName = applicationsData.PropertyOwnerDetail.FullName;
+    }
+
+    var pageHistory = ViewContext.HttpContext.Session.GetOrDefault<PageHistoryModel>(PageHistoryAttribute.PageHistorySessionKey);
+    var previousPageUrl = pageHistory?.PageHistory.LastOrDefault() ?? string.Empty;
+
+    var signinUrl = Configuration.GetValue<string>("AzureAdB2C:SignInUrl");
+    var signoutUrl = Configuration.GetValue<string>("AzureAdB2C:SignOutUrl");
+}
+
+<div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">
+            BETA
+        </strong>
+        <span class="govuk-phase-banner__text">
+            This is a new service – your <a class="govuk-link" rel="noreferrer noopener" href="https://www.surveymonkey.co.uk/r/YY3VWTW" target="_blank">feedback</a> will help us to improve it.
+        </span>
+    </p>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        @{
+            if (isViewDetails || isStartApplication || isViewDetailsSubpage || isManageAccount || isGetHelp)
+            {
+                <div class="govuk-breadcrumbs bus-breadcrumbs">
+                    <ol class="govuk-breadcrumbs__list">
+                        <li class="govuk-breadcrumbs__list-item">
+                            <a class="govuk-breadcrumbs__link" href="/">Applications</a>
+                        </li>
+                        @if (isViewDetailsSubpage)
+                        {
+                            <li class="govuk-breadcrumbs__list-item">
+                                <a class="govuk-breadcrumbs__link" asp-page=@Routes.Pages.Path.CD149 asp-route-referenceNumber=@Session.ReferenceNumber asp-route-businessAccountId=@Session.BusinessAccountId class="govuk-link govuk-link--no-visited-state">@postcode, @propertyOwnerFullName</a>
+                            </li>
+                        }
+                    </ol>
+                </div>
+            }
+
+            if (!isDashboard && !isViewDetails && !isStartApplication && !isViewDetailsSubpage && !string.IsNullOrEmpty(previousPageUrl))
+            {
+                <a class="govuk-back-link" href="@previousPageUrl">Back</a>
+
+            }
+
+            if (isCookies)
+            {
+                <a class="govuk-back-link bus-js--visible" href="javascript:history.back()">Back</a>
+
+            }
+            //if error page do not show breadcrumbs needs adding
+        }
+
+        <div class="account-links-container">                   
+            @{
+                if (!noBreadcrumbsrequired)
+                {
+                    if (User.Identity!.IsAuthenticated)
+                    {
+                        <p class="govuk-body govuk-body-s account-link  account-link-2">
+                            <a class="govuk-link govuk-link--no-visited-state" href=@Routes.CD150>Manage account</a>
+                        </p>
+
+                        <p class="govuk-body govuk-body-s account-link account-link-2">
+                            <a class="govuk-link govuk-link--no-visited-state" href=@Routes.CD153>Get help</a>
+                        </p>
+                        <p class="govuk-body govuk-body-s account-link account-link-2">
+                            <a class="govuk-link govuk-link--no-visited-state" href="@signoutUrl">Sign out</a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="govuk-body govuk-body-s account-link account-link-2">
+                            <a class="govuk-link govuk-link--no-visited-state" href="@signinUrl">Sign in</a>
+                        </p>
+                    }
+                }
+
+            }
+        </div>
+    </div>
+</div>
